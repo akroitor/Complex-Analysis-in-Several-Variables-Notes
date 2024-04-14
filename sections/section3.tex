@@ -1,0 +1,1162 @@
+
+\section{Holomorphic Mappings}
+
+We need a notion for holomorphicity of maps $\C^n \to \C^m$.
+
+
+
+\begin{definition}
+    A map $F : \C^n \to \C^m$ is \textbf{holomorphic} if $F = (f_1 , \cdots, f_m)$ with $f_j \in \O(\C^n)$. The \textbf{differential} (or \textbf{Jacobian}) of $F$ at $z = (z_1, \cdots, z_n) \in \C^n$ is
+    \begin{align*}
+        D F(z) =
+        \begin{bmatrix}
+            \frac{\partial f_1}{\partial z_1} & \cdots & \frac{\partial f_1}{\partial z_n}\\
+            \vdots & \ddots & \vdots\\
+            \frac{\partial f_m}{\partial z_1} & \hdots & \frac{\partial f_m}{\partial z_n}
+        \end{bmatrix} (z).
+    \end{align*}
+    Note this is an $n \times m$ matrix with complex coefficients. This is a "complex differential", but we can write this as a "real differential"
+    \begin{align*}
+        D_\R F = \begin{bmatrix}
+            \frac{\partial \Re f_j}{\partial x_k} & \frac{\partial \Im f_j}{\partial x_k}\\
+            \frac{\partial \Re f_j}{\partial y_k} & \frac{\partial \Im f_j}{\partial y_k}
+        \end{bmatrix} ,
+    \end{align*}
+    which is a $2n \times 2m$ matrix with real coefficients.
+\end{definition}
+
+\begin{lemma}
+    We have that
+    \begin{align*}
+        \det D_\R F(z) = \abs{ \det D F(z) }^2 \geq 0.
+    \end{align*}
+\end{lemma}
+
+
+\begin{remark} \hphantom{.}
+    \begin{itemize}
+        \item The chain rule has a natural analogue for holomorphic maps.
+        \item $\C^n$ has a natural orientation. If $F : \C^n \to \C^n$ is holomorphic and $\det DF \neq 0$, then $F$ is orientation-preserving.
+    \end{itemize}
+\end{remark}
+
+\subsection{Implicit Function Theorem}
+
+\def\arraystretch{1.5}
+\begin{theorem}
+    Let $D \subset \C^n$ be a domain, $F  = (f_1 , \cdots, f_m) : D \to \C^m$ be holomorphic with $m<n$ and $F(a) = 0$ for some $a \in D$. Further write
+\begin{align*}
+    DF(a) =
+\begin{bNiceMatrix}[left-margin=0.6em,right-margin=0.6em]
+    % \Block[draw]{1 -1}{}
+    \frac{\partial f_1}{\partial z_1} & \cdots & \frac{\partial f_1}{\partial z_{n-m}} & \Block[draw]{3 -3}{}
+     \frac{\partial f_1}{\partial z_{n-m+1}} & \cdots & \frac{\partial f_1}{\partial z_n}\\
+    \vdots & \ddots & \vdots & \vdots & \ddots & \vdots \\
+    \frac{\partial f_m}{\partial z_1} & \hdots & \frac{\partial f_m}{\partial z_{n-m}} & \frac{\partial f_m}{\partial z_{n-m+1}} & \hdots & \frac{\partial f_m}{\partial z_n}\\
+\end{bNiceMatrix} (a)
+\end{align*}
+and assume that the boxed $m \times m$ minor of $DF$ has full rank. That is assume that
+\begin{align*}
+    \det \left[ \frac{\partial f_k}{\partial z_j} (a) \right]_{\subalign{k&=1 , \cdots, m\\j&=n-m+1 , \cdots, n}} \neq 0.
+\end{align*}
+
+Then there exists a holomorphic map
+\begin{align*}
+    h = (h_1, \cdots, h_m) : \mathbb{B}'(a' , \epsilon') \to \mathbb{B}''(a'' , \epsilon'')
+\end{align*}
+where $a' \in \C^n, a'' \in \C^m$, and $ a= (a',a'')$ such that
+\begin{align*}
+    F(z',z'') = 0 \iff z'' = h(z').
+\end{align*}
+
+Picture of Implicit function theorem
+\end{theorem}
+\def\arraystretch{1}
+
+\subsection{Biholomorphic Maps}
+
+\begin{theorem}[Inverse Function Theorem]
+    Let $D \subset \C^n, F : D \to \C^n$ with $\det DF (a) \neq 0$. Then there exist neighbourhoods $U$ of $a$ and $W$ of $b = f(a)$ such that 
+    \begin{align*}
+        F |_U : U \to W
+    \end{align*}
+    is a homeomorphism and $F^{-1}: W \to U$. In this case then $F |_U$ is called \textbf{biholomorphic}).
+\end{theorem}
+
+\begin{proof}
+    Let $w \in \C^n$. Define $G(w, z) = F(z) - w$. This is a holomorphic function from $\C^n \times D \to \C^n$. Note that $G(a,b) = 0$. Say that $G = (g_1, \cdots, g_n) $. Then
+    \begin{align*}
+        \det \left[ \frac{\partial g_k}{\partial z_j} (b,a) \right]_{j,k} = \det DF(a) \neq 0.
+    \end{align*}
+    By the implicit function theorem there exists a neighbourhood $W \ni b$ and $B = \ball{a}{\epsilon} \subset D$ such that for $(w , z ) \in W \times B$ then
+    \begin{align*}
+        G(w , z) = 0 \iff z = H(w)
+    \end{align*}
+    for some holomorphic $H : W \to B$. $H$ is the inverse to $F$.
+\end{proof}
+
+\subsection{Biholomorphic Equivalence of Domains}
+We would like to know when two domains have a biholomorphism from one to another. For $n=1$ the Riemann Mapping Theorem states that if $\om \subset \C$ is a simply-connected domain then $\om \cong_{biholo} \mathbb{D}(0,1)$. This is also true for any simply connected open Riemann surface.
+
+\begin{exercise}
+    Consider
+    \begin{align*}
+        \set{ r_1 < \abs{z} < R_1 },
+        \set{ r_2 < \abs{z} < R_2 }.
+    \end{align*}
+    When are they biholomorphic?
+\end{exercise}
+
+For $n>1 $ there is no such nice result as the Riemann Mapping Theorem. In fact the two model domains $\mathbb{B}^n (0,1)$ and $\mathbb{D}^n (0,1)$ are not biholomorphic!
+
+\begin{theorem}[Poincare, 1907]
+    If $n > 1$ then
+    \begin{align*}
+        \mathbb{B}^n (0,1) \ncong_{biholo} \mathbb{D}^n (0,1).
+    \end{align*}
+\end{theorem}
+
+\begin{proof}
+    Let $n=2$, and write $(z,w) \in \C^2$. Assume that $\exists F = (f_1,f_2) : \mathbb{D}^2 \to \mathbb{B}^2$ biholomorphic.
+    \begin{claim}
+        $\forall w \in \DD$, the map $F_w : \DD \to \C$ given by
+        \begin{align*}
+            F_w(z) = \br{ \frac{\partial f_1}{\partial w} (z,w) , \frac{\partial f_2}{\partial w} (z,w)  }
+        \end{align*}
+        satisfies
+        \begin{align*}
+            \lim_{z \to \bdy \DD} F_w (z) = 0.
+        \end{align*}
+    \end{claim}
+    Note that this claim implies the theorem, as $F_w$ extends continuously to $\overline{\DD}$ and $\equiv 0$ on $\bdy \DD$. This cannot happen unless $F_w \equiv 0$, and so $F$ is independent of $w$. This means that $F$ cannot be biholomorphic.
+
+    \begin{proof}[Proof of Claim]
+        It is enough to show that $\forall \set{z_\gamma} \subset \DD$ with $|z_\gamma| \to 1$, there exists a subsequence $\set{z_{\gamma_j}}$ such that
+        \begin{align*}
+            \lim_{j \to \infty} F_w(z_{\gamma_j}) = 0.
+        \end{align*}
+        Given such a sequence, apply Montel's theorem to the sequence
+        \begin{align*}
+            \set{F(z_\gamma , \cdot) }, \qquad F(z_\gamma , \cdot) : \DD \to \ball^2
+        \end{align*}
+        to get the holomorphic function $\phi : \DD \to \overline{\ball^2}$ as the limit. Since $F$ is biholomorphic, $F(z_\gamma, w) \to \bdy \ball^2$ as $z_\gamma \to \bdy \DD$ for any $w \in \DD$. Thus $\phi(\DD) \subset \bdy \ball^2$. If $\phi = (\phi_1 , \phi_2)$ then $\forall w \in \DD$ we have
+        \begin{align*}
+            \abs{\phi_1(w)}^2 + \abs{\phi_2(w)}^2 = 1.
+        \end{align*}
+        Applying the operator $\frac{\partial^2}{\partial w \partial \overline{w}}$ to both sides of this equation gives us
+        \begin{align*}
+            \abs{ \phi'_1(w) }^2 + \abs{ \phi'_2(w) }^2 = 0.
+        \end{align*}
+        Thus $\phi'(w) = 0$. Since $F_w(z_\gamma) \to \phi'(w)$ then this proves the claim.
+    \end{proof}
+    Then we are done.
+\end{proof}
+
+\begin{note}
+    We can repeat this same argument for $n>2$ without much complexity, just more space.
+\end{note}
+
+\begin{remark}
+    Unlike one variable, very few domains in several complex variables are biholomorphic, and it is quite notable if they are.
+\end{remark}
+
+\begin{definition}
+    We write $D \cong D'$ and say that $D$ and $D'$ are \textbf{biholomorphically equivalent} if there exists a biholomorphic map $F: D \to D'$.
+\end{definition}
+
+
+\begin{nexample}
+    $\ball^n(0,1) \not\cong \DD^n(0,1)$.
+\end{nexample}
+
+\begin{definition}
+    Let $D \subset \C^n$ be a domain. Then a biholomorphism $f: D \to D$ is called a (biholomorphic) \textbf{automorphism of} $D$. Define the \textbf{automorphism group of} $D$ as
+    \begin{align*}
+        \Aut(D) = \set{\text{biholomorphic automorphisms of } D}.
+    \end{align*}
+    This is a group under composition.
+\end{definition}
+
+\begin{remark}
+    If $D \cong D'$ then $\Aut (D) \cong_{iso} \Aut(D')$.
+\end{remark}
+
+\begin{remark}
+    It is true that if $G \in \Aut(\ball^n)$ then $G = U \circ L_a$ for some $a \in \ball^n$, where $U$ is a unitary transformation and $L_a$ is a biholomorphic linear fractional map $\ball^n \to \ball^n$ that sends $a$ to $0$.
+
+    add picture
+
+    More specifically let $l_a$ be the complex line that passes through $0$ and $a$. Denote $z'_a = \operatorname{proj}_{l_a} z$ and $z''_a = z-z'_a$. Then $L_a$ is the map
+    \begin{align*}
+        L_a : z \mapsto \frac{a - z'_a - \sqrt{1-a^2} z''_a}{1- \langle z,a \rangle}.
+    \end{align*}
+
+    It is true that
+    \begin{align*}
+        \Aut(\ball^n) \subset \set{ \text{linear fractional transformations on } \C^n }.
+    \end{align*}
+    It is further true that $\Aut(\ball^n)$ is a group depending on $n^2 + 2n$ real parameters.
+\end{remark}
+
+\begin{remark}
+    We have that
+    \begin{align*}
+        \Aut(\DD^n) = \set{ z_j \mapsto e^{i \theta_{\sigma(j)}} \left[ \frac{z_{\sigma(j)} - a_{\sigma(j)}}{1 - \overline{a_{\sigma(j)}} z_{\sigma(j)} } \right] }
+    \end{align*}
+    where $\sigma$ runs over permutations of $\set{1, \cdots, n}$. This depends on $3n$ real parameters. It follows that
+    \begin{itemize}
+        \item if $n=1$ then $\Aut(\ball^n) \cong \Aut(\DD^n)$,
+        \item if $n>1$ then $\Aut(\ball^n) \ncong \Aut(\DD^n)$.
+    \end{itemize}
+    Thus $\ball^n \ncong \DD^n$.
+\end{remark}
+
+\begin{remark}
+    For $n=1$ we have a property in the Riemann Mapping Theorem that lets us map $a$ to $b$.
+
+    Add picture
+
+    For $n>1$ we have a similar result. For $\ball^n, \DD^n$ then $\forall a \exists f \in \Aut$ such that $f(a) = 0$. This implies that $\Aut(\ball^n) , \Aut(\DD^n)$ are transitive, ie $\forall a,b $ there exists $f \in \Aut$ such that $f(a) = b$.
+\end{remark}
+
+\begin{theorem}[Bedford Dadok, 1972]
+    For every real linear Lie group $L$ there exists a domain $D \subset \C^n$ such that $\Aut(D) \cong L$.
+\end{theorem}
+
+\subsection{Automorphisms of $\C^n$}
+
+We would like to classify the automorphism group of $\C^n$.
+\begin{itemize}
+    \item[$n=1$:] If $F : \C \to \C$ is biholomorphic then $F(z) = az+b$ (this is affine), where $a,b \in \C$. Thus
+    \begin{align*}
+        \dim_\R \Aut(\C) = 4.
+    \end{align*}
+    \item[$n>1$:] It is true that
+    \begin{align*}
+        \dim_\R \Aut(\C^n) = \infty.
+    \end{align*}
+\end{itemize}
+
+\begin{example}
+    Define the map $f(z,w) = (z, w + \phi(z))$ where $\phi \in \O(\C)$ is entire. Then $f \in \Aut(\C^2) $ as $f^{-1}(z',w')  = (z' , w' - \phi(z'))$. These are called "shears" and are dense in $\Aut(\C^n)$.
+\end{example}
+
+\begin{remark}
+    Biholomorphicity does not in general imply surjectivity.
+    \begin{itemize}
+        \item[$n=1$:] Consider $F : \C \to \C$ biholomorphic on its image. Then $F$ is surjective.
+        \item[$n>1$:] There exists a map $F : \C^n \to \C^n$ which is injective and biholomorphic onto its image. However $F(\C^n) \neq \C^n$. In fact $\C^n \setminus F(\C^n)$ has non-empty interior. The images of such $F$ are called \textbf{Fatou-Bieberbach domains}.
+    \end{itemize}
+\end{remark}
+
+\begin{proposition}[Stensones, 2000]
+    There exists a map $F : \C^2 \to \C^2$ such that $F(\C^2) $ has smooth boundary.
+\end{proposition}
+
+\begin{note}
+    For $\C^2$ define
+    \begin{align*}
+        \zeta(z_1 , z_2) = (z_2 , a^2 z_1 - (1-a) z_2^2 ).
+    \end{align*}
+    Then the basin of attraction of $0$ is the set
+    \begin{align*}
+       \set{ z \in \C^2 \mid \lim_{\gamma \to \infty} \zeta^{\circ \gamma} (z) = 0 }. 
+    \end{align*}
+\end{note}
+
+\subsection{The Jacobian Conjecture}
+
+ Let $A: \C^n \to \C^n$ be a complex linear function. This can be seen as a "polynomial of degree one". Then
+ \begin{align*}
+     \det DA \neq 0 \iff A \in \Aut (\C^n).
+ \end{align*}
+We want to try to extend this to polynomials of higher degree. Let $F = (f_1 , \cdots, f_n) : \C^n \to \C^n$ be a polynomial, that is let $f_j$ be a polynomial in $z_1, \cdots, z_n$. Then $\det DF$ is a polynomial. Then there are two possible cases:
+\begin{itemize}
+    \item $\det DF$ is non-constant or identically $0$. Then by the fundamental theorem of algebra there exists some $z \in \C^n$ such that $\det DF(z) = 0$. Then $F$ is not locally invertible and is not injective.
+    \item $\det DF$ is a non-zero constant.
+\end{itemize}
+\begin{conjecture}[Keller, 1939]
+    If $\det DF = cst \neq 0$ then $F$ is invertible and $F^{-1}$ is a polynomial. Thus $F \in \Aut (\C^n)$.
+\end{conjecture}
+
+\begin{remark}
+    The Jacobian conjecture is false for entire maps. For example consider $F: (z,w ) \mapsto (e^z , e^{-z}w) $. Then
+    \begin{align*}
+        \det DF = \det 
+        \begin{bmatrix}
+            e^z & 0\\
+            -e^{-z}w & e^{-z}\\
+        \end{bmatrix}
+        = e^{z} e^{-z} = 1,
+    \end{align*}
+    but $F$ is not injective, since
+    \begin{align*}
+        F(0,0) = (1,0) = F(2 \pi i , 0).
+    \end{align*}
+\end{remark}
+
+\begin{remark}
+    The Jacobian conjecture fails as well for Fatou Bieberbach type functions, ie maps which are injective and biholomorphic onto their image, but fail to be surjective.
+\end{remark}
+
+\begin{remark}
+    The Jacobian Conjecture holds if $\deg F = 2$ in any dimension.
+\end{remark}
+\begin{remark}
+    If the Jacobian Conjecture holds for polynomials of degree $3$ in all dimensions then it holds in general.
+\end{remark}
+
+\begin{theorem}
+    Let $F : \C^n \to \C^n$ be a polynomial, and suppose $DF$ is a non-zero constant. Then the following are equivalent:
+    \begin{enumerate}
+        \item $F$ is invertible and $F^{-1}$ is a polynomial.
+        \item $F$ is injective.
+        \item $F$ is proper, ie $\forall K \Subset \C^n$ compact then $F^{-1}(K)$ is a compact subset of $\C^n$.
+    \end{enumerate}
+\end{theorem}
+
+\begin{remark}
+    The Jacobian Conjecture cn an be formulated for any field $\mathbb{K}$, not just $\C$.
+\end{remark}
+\begin{remark}
+    The Jacobian Conjecture is false for fields with finite characteristic.
+\end{remark}
+\begin{remark}
+    If the Jacobian Conjecture holds for $\C$ then it holds for any algebraically closed field of characteristic $0$.
+\end{remark}
+\begin{remark}
+    What about $\mathbb{K} = \R$? Then either $DF \neq 0$ or $DF$ is a non-zero constant.
+\end{remark}
+\begin{nexample}
+    There exists a polynomial map $F: \R^n \to \R^n$ with $DF = cst \neq 0$ such that $F$ is not invertible. Note that $\deg F \approx 100$.
+\end{nexample}
+
+\subsection{Complex Manifolds}
+
+\begin{definition}[Real Manifolds]
+    Let $M$ be a Hausdorff topological space. $M$ is a \textbf{real manifold} if $M$ is covered by coordinate charts $(U,\phi)$ where $U \subset M$ and $\phi : U \to \phi(U) \subset \R^n$ is a homeomorphism, such that
+    \begin{align*}
+        \phi_V \circ \phi_U^{-1} : \R^n \to \R^n
+    \end{align*}
+    is smooth. $\set{(U,\phi)}$ is called an \textbf{atlas}.
+    add picture
+\end{definition}
+
+\begin{definition}
+    Complex manifolds are the same, except replace $\R^n$ with $\C^n$ and instead of smooth transition maps require biholomorphic transition maps.
+\end{definition}
+
+\begin{example}
+    Open subsets of $\C^n$ are complex manifolds.
+\end{example}
+\begin{example}
+    The complex projective space $\C \PP^n$ is a complex manifold. To construct this consider $\C^n$ and write $z = (z_1, \cdots, z_n)$. Introduce homogeneous coordinates
+    \begin{align*}
+        z_j = \frac{w_j}{w_0}, \quad w_0 \neq 0.
+    \end{align*}
+    This gives a correspondence $z \to w = (w_0 , w_1, \cdots, w_n)$ where $w_0 \neq 0$. This is $1-1$ up to scalar multiplication by $\lambda \in \C \setminus \{ 0 \}$. Then define the quotient
+    \begin{align*}
+        \C\PP^n =  \set{ w = (w_0 , w_1 , \cdots, w_n ) \neq 0  }  \big/ w' = \lambda w'' \text{ for some } \lambda \in \C \setminus \{ 0 \}.
+    \end{align*}
+    Then we have that
+    \begin{align*}
+        \C^n_z \cong \C \PP^n \cap \set{ w_0 \neq 0}.
+    \end{align*}
+    Note as well that the points at infinity for $\C^n$ is
+    \begin{align*}
+        \C \PP^n \cap \set{w_0 = 0} \cong \C \PP^{n-1}.
+    \end{align*}
+    Then $\C \PP^n$ is a compact complex manifold with atlas $(U_j, \phi_j) , j = 0 ,\cdots, n$ where 
+    \begin{align*}
+        U_j = \C \PP^n \cap \set{w_j \neq 0}.
+    \end{align*}
+    We write $[w] $ for the equivalence class of $w$. Then
+    \begin{align*}
+        &\phi_j [w] = \br{ \frac{w_0}{w_j} , \cdots, \frac{w_{j-1}}{w_j}, \frac{w_{j+1}}{w_j}, \cdots, \frac{w_n}{w_j} },\\
+        &\phi_j : U_j \to \C^n.
+    \end{align*}
+\end{example}
+\begin{exercise}
+    Show that $\phi_j \circ \phi^{-1}_k$ is biholomorphic onto its image where defined.
+\end{exercise}
+
+\begin{example}
+    Note that
+    \begin{align*}
+        \C\PP^n = \set{ \text{complex lines passing through } 0 \text{ in } \C^{n+1} }.
+    \end{align*}
+    Replacing complex lines with $k$-dimensional complex linear subspaces to get the complex Grassmannian
+    \begin{align*}
+        G(n,k) = \set{ k \text{-dimensional complex subspaces of } \C^n },
+    \end{align*}
+    where $0 < k < n$. This is a compact complex manifold of dimension $k (n-k)$. Note that
+    \begin{align*}
+        G(1,n) \cong \C \PP^{n-1}.
+    \end{align*}
+\end{example}
+
+\begin{example}
+    Complex submanifolds of $\C^n$ are complex manifolds.
+\end{example}
+
+\begin{definition}
+    $X \subset \C^n$ is a \textbf{complex submanifold} of $\C^n$ if $\forall p \in X$ there exists a neighbourhood $p \in U \subset \C^n$ and a biholomorphism $\phi : U \to \C^n_w$ such that
+    \begin{align*}
+        \phi(X \cap U) = \phi(U) \cap \set{  w_1 = \cdots = w_k = 0 }.
+    \end{align*}
+    We say that $\dim_\C X = n-k$. Note that $(U,\phi)$ are coordinate charts on $X$.
+\end{definition}
+
+\begin{exercise}
+    $X \subset \C^n$ is a complex submanifold of dimension $d$ if $\forall p \in X$ there exists a neighbourhood $U$ of $p$ such that $U = U' \times U''$ and $U \cap X$ is the graph of some holomorphic map $f : U' \to U''$.
+
+    add picture.
+\end{exercise}
+
+\begin{theorem}
+    Let $D  \subset \C^n$, $F : D \to \C^m$ be a non-singular (ie $DF(z)$ has full rank for all $z$) holomorphic map. Then $\forall a \in \C^m$, $F^{-1}(a)$ is a complex submanifold of $\dim = \max \set{n-m}$. If $m \geq n$ then $F^{-1}(a) $ is either a point (a $0$-dimensional manifold) or $F^{-1}(a) = \emptyset$.
+\end{theorem}
+
+\begin{proof}
+    $F^{-1}(a)$ is a smooth manifold. Without loss of generality then $n> m$. Replace $F$ with $\tilde{F} = F - F(a)$. After relabeling coordinates $\tilde{F}$ satisfies the assumptions of the implicit function theorem. Thus there exists a neighbourhood $U$ or $p \in F^{-1}(a)$ such that $\set{z \in U \mid \tilde{F} = 0} = $ the graph of a holomorphic function $h : U' \to U''$ where $U' \subset \C^{n-m}$ and $U'' \subset \C^m$. Thus $h$ is a local parameterization of $F^{-1}(a)$.
+\end{proof}
+
+\begin{remark}
+    Let $X \subset \C^n$ be a complex submanifold of dimension $0 < k < n$. Then for $p \in X$, $T_pM \cong \C^k$.
+
+    add picture
+\end{remark}
+
+The following theorem is converse to the previous remark.
+
+\begin{theorem}[Levi Civita]
+    Suppose $X \subset \C^n$ is a real submanifold of even dimension $2k$. Suppose $\forall p \in X$ then $T_pX \cong \C^k$. Then $X$ is a complex submanifold of $\C^n$.
+\end{theorem}
+
+\begin{example}
+    Let $f : \C^n \to \C$ be $C^1$ smooth. Then the graph of $f$ is a smooth manifold.
+
+    add picture
+
+    If $T_p \Gamma_f \cong \C^n \subset \C^{n+1}$ then by Levi Civita $\Gamma_f$ is a complex submanifold of $\C^{n+1}$. This implies that $f$ is holomorphic. Note that the condition on $T_p \Gamma_f$ is equivalent to saying that $f$ is $\C$-linear at each point.
+\end{example}
+
+\subsection{Holomorphic Functions and Maps on Complex Manifolds}
+
+We want to define holomorphicity of functions from manifolds to $\C^n$.
+
+\begin{definition}
+    Let $X$ be a complex manifold of (complex) dimension $k$. A function $f : M \to \C^m$ is \textbf{holomorphic} if $f \circ \phi^{-1}$ is holomorphic for any coordinate chart $(U,\phi)$ on $X$.
+\end{definition}
+
+Now suppose that $X \subset \C^n$ is a submanifold and $g: U' \to U''$ where $U' \subset \C^k$ and $U'' \subset \C^{n-k}$ is a local parameterization.
+
+\begin{definition}
+    We say that $f$ is \textbf{holomorphic} if $f(z' , g(z'))$ is a holomorphic map on $U'$ for any parameterization $g$.
+\end{definition}
+
+\begin{remark}
+    Various complex analytic results, such as the maximum principle and the uniqueness theorem, have manifold analogues.
+\end{remark}
+
+We have two propositions.
+
+\begin{proposition}
+    If $X$ us a compact connected complex manifold then any function that is holomorphic on $X$ is a constant.
+\end{proposition}
+
+\begin{proof}
+    $f \in \O (X) \implies f \in C(X)$, so $f$ attains global max at $p \in X$. Apply the max principle to $f$ on some small neighbourhood $p$ in $X$ to achieve our result.
+\end{proof}
+
+\begin{proposition}
+    If $M$ is a compact complex submanifold on $\C^n$, then $M$ is a finite union of points.
+\end{proposition}
+
+\begin{proof}
+    Let $\tilde{M} \subset M$ be a connected component of $M$. Consider the function $\pi_j |_{\tilde{M}}$, ie projection onto the $j$-th coordinate. This is a holomorphic function on $\tilde{M}$. By the previous proposition $\pi_j |_{\tilde{M}}$ is constant. Since $j$ is arbitrary then $\tilde{M}$ is a point.
+\end{proof}
+
+\subsection{Complex Analytic Sets}
+
+\begin{definition}
+    A set $A \subset \C^n$ is a \textbf{local complex analytic set} if $\forall p \in A$ there exists and neighbourhood $p \in U \subset \C^n$ and $f_1 , \cdots, f_k \in \O(U)$ such that
+    \begin{align*}
+        A \cap U = \set{ f_1 = \cdots = f_k = 0}.
+    \end{align*}
+\end{definition}
+
+\begin{definition}
+    A set $A \subset \om \subset \C^n$ is a \textbf{complex analytic set} if $\forall p \in \om$ there exists a neighbourhood $ p \in U \subset \C^n$ and $f_1 , \cdots f_k \in \O(U)$ such that
+    \begin{align*}
+        A \cap U = \set{ f_1 = \cdots = f_k = 0}.
+    \end{align*}
+\end{definition}
+
+\begin{remark}
+    We write "caset" to mean complex analytic set. In some literature local casets are called complex analytic sets, and casets are called complex analytic subsets.
+\end{remark}
+
+\begin{example}
+    \hphantom{.}
+\begin{itemize}
+    \item[$n=1$:] \begin{itemize}
+        \item The local casets are either points or domains.
+        \item The casets are just discrete sets of points.
+    \end{itemize}
+    This is the case for local casets since if we select a $p$ inside a domain we can use the $0$ function. This is the case for casets since otherwise we can pick something on the boundary of $A$ to get a contradiction. 
+    \item[$n>1$:] \begin{itemize}
+        \item Any open set is a local caset but not a caset.
+        \item $\set{0} = \set{z_j = 0 \mid j = 1 ,\cdots, n}$ is a caset.
+        \item $\set{z_n = 0}$ is a caset. In fact any complex submanifold is a caset.
+        \item $\set{z_1^2 = z_2^3} \subset \C^2$ is a caset but not a complex submanifold of $\C^2$ (cusp at $0$). 
+    \end{itemize}
+\end{itemize}
+\end{example}
+
+\begin{definition}
+    A set $A$ is \textbf{reducible} if $A = A_1 \cup A_2$ where $A_1, A_2$ are different casets. $A$ is \textbf{irreducible} if $A = A_1 \cup A_2$ implies $A_1 = A$ or $A_2 = A$.
+\end{definition}
+
+\begin{proposition}
+    Finite unions and finite intersections of casets are casets.
+\end{proposition}
+
+\begin{proof}
+    Let $A = \set{ f_1 = \cdots f_k = 0}$ and $B = \set{g_1 = \cdots = g_l = 0}$ locally near $p \in \C^n$. Then
+    \begin{align*}
+        A \cup B &= \set{ f_\mu g_\nu = 0 \mid \mu \in [k], \nu \in [l]},\\
+        A \cap B &= \set{f_1 = \cdots f_k = g_1 = \cdots = g_l = 0}
+    \end{align*}
+    locally near $p$.
+\end{proof}
+
+
+\begin{proposition}
+    Let $A \subset \om$ be a caset with $A \neq \om$. Then $A$ is nowhere dense in $\om$.
+\end{proposition}
+
+\begin{proof}
+    If $A$ is dense in some $U \subset \om$ then locally
+    \begin{align*}
+        A = \set{f_1 = \cdots f_k = 0},
+    \end{align*}
+    where $f_j$ vanish on a dense set in $U$. This implies that
+    \begin{align*}
+        f_j |_{U} \equiv 0
+    \end{align*}
+    and so since $\om$ is connected then this forces $A = \om$.
+\end{proof}
+
+\begin{definition}
+    A point $z \in A$ is a \textbf{regular point} of a caset $A$ if near $z$ then $A$ is a complex manifold. Otherwise $z$ is a \textbf{singular point}. We write
+    \begin{align*}
+        A^{reg} &= \set{ z \in A \mid z \text{ is a regular point of } A},\\
+        A^{sng } &= A \setminus A^{reg}.
+    \end{align*}
+\end{definition}
+
+\begin{example}
+    Let $A = \set{ z_1^2 - z_2^3 = 0} \subset \C^2$. Then $A = \set{ f^{-1}(0) \mid f(z_1, z_2 ) = z_1^2 - z_2^3 }$. Then $Df(z) = (2z_1 , -3z_2)$. Then $Df(z) = 0$ iff $z = 0$. Thus $A \setminus \{ 0 \}$ is a complex manifold, and so $A^{reg}= A \setminus \{ 0 \}$ and $A^{sng} = \{ 0 \}$. Note that $A$ is an irreducible caset.
+\end{example}
+
+\begin{example}
+    Let $A_1 = \set{z_3 = 0} $ and $A_2 = \set{z_1 = z_2 = 0}$.
+
+    add picture
+
+    Then $A = A_1 \cup A_2$ is a caset. If $z \neq 0$ then near $z$ $A$ is a complex submanifold of $\dim_\C =1$ or $\dim_\C = 2$. It is true that $A^{reg} = A \setminus \{0 \}$ and $A^{sng} = \{ 0 \}$. Note as well that $A$ is a reducible caset.
+\end{example}
+
+\begin{definition}
+    Let $A$ be a caset. If $z \in A^{reg}$ then we define $\dim_z A = \dim_\C A$ as a complex submanifold near $z$. If $z \in A^{sng}$ then we define
+    \begin{align*}
+        \dim_z A = \limsup_{\substack{w \to z\\ w \in A^{reg}}} \dim_w A.
+    \end{align*}
+\end{definition}
+
+\begin{example}
+    In the first example then $\dim_z A = 1$ fr every $z$. In the second example then $\dim_z A = 2$ if $z_3 = 0$ and $\dim_zA = 1$ otherwise. 
+\end{example}
+
+\begin{definition}
+    Say $\dim A = \max_{z \in A} \dim_zA$.
+\end{definition}
+
+\begin{proposition}
+    Let $D \subset \C^n$, $f \in \O(D)$ with $f \not\equiv 0$, and let $A = \set{f=0 } \neq \emptyset$. Then $A$ is a caset in $D$ and $\dim A = n-1$.
+\end{proposition}
+
+\begin{proof}
+    $A $ is nowhere dense in $D$, which implies that $\dim A \leq n-1$. Take any $z \in A$. By the uniqueness theorem $\exists j = (j_1, \cdots, j_n)$ with $|j| \geq 0$ such that
+    \begin{align*}
+        g : = \frac{\partial^{|j|} f}{\partial z^j} \bigg|_A \equiv 0
+    \end{align*}
+    but $dg |_A \not\equiv 0$. Thus there exists $b \in A^{reg}$ near $z$ so $A \cap U_b$ (where $U_b$ is a neighbourhood of $b$) is a complex submanifold of dimension $n-1$. Since $z$ is arbitrary and $b$ is arbitrarily close to $z$ then $\dim A = n-1$.
+\end{proof}
+
+\begin{exercise}
+    There is an issue with this proof! Find it.
+\end{exercise}
+
+\begin{note}
+    The issue with this proof is that $g$ might have a larger vanishing set than just $A$ (ie $A \subseteq \set{g=0}$), and so we can only say that $\dim A \leq n-1$, not that $\dim A = n-1$.
+\end{note}
+
+\begin{remark}
+    Note that $A^{reg}$ is open in $A$.
+\end{remark}
+
+\begin{theorem}
+    $A^{reg} \subset A$ is dense.
+\end{theorem}
+
+\begin{proof}
+    We induct on the dimension $n$. If $n=1$ then $A$ is a union of points and is thus a complex manifold of dimension $0$. Then $A = A^{reg}$, which suffices.
+
+    Now suppose that this is true for $n-1$. Let $a \in A$, and let $U \ni a$ be a neighbourhood such that
+    \begin{align*}
+        U \cap A = \set{f_1 = \cdots f_N = 0 , \,\, f_j \in \O(U)}.
+    \end{align*}
+    It suffices to prove that $U \cap A^{reg} \neq \emptyset$. Wlog $f_1 \not\equiv 0$. Then $f_1 |_{A \cap U} = 0$. Then there exists an index $j_0$ such that
+    \begin{align*}
+        g = \frac{\partial^{|j_0|} f_1}{\partial z^{j_0}} \bigg|_{A\cap U} \equiv 0
+    \end{align*}
+    but some derivative
+    \begin{align*}
+        \frac{\partial g}{\partial z_k} (b) \neq 0
+    \end{align*}
+    for some $b \in A \cap U$. By the implicit function theorem $\exists V \ni b$ with $V \subset U$ such that
+    \begin{align*}
+        A_g = \set{z \in V \mid g(z) = 0}
+    \end{align*}
+    is a complex submanifold of $V$ of dimension $n-1$. $g|_{V \cap A} = 0$, and so $A\cap V \subset A_g$. Since $A_g$ is a complex submanifold of dimension $n-1$ then $A \cap V$ contains a regular point by the induction hypothesis, and so we are done.
+\end{proof}
+
+This shows that our notion of dimension for casets is well-defined.
+
+\begin{remark}
+    It is true that $A^{sng}$ is a caset itself, with $\dim A^{sng} < \dim A$. This means we can somehow decompose a caset into a union of manifolds of different dimensions.
+\end{remark}
+
+This is all the preparation we need to for the following important theorem due to Weierstrass (though Siegel disagreed). This theorem is a generalization of the implicit function theorem and is a very useful tool when dealing with several complex variables.
+
+\begin{theorem}[Weierstrass Preparation Theorem]
+    Let $f \in \O(V)$ where
+    \begin{align*}
+        V = V' \times \set{ \abs{z_n} < R} \subset \C^{n-1} \times \C = \C^n,
+    \end{align*}
+    where $V'$ is a neighbourhood of $0'$ in $\C^{n-1}$. Suppose that $f(0',z_n) \not\equiv 0$ in $\abs{z_n} < R$. Let $0 < r< R$ be such that $f(0' , z_n) \neq 0$ on $\abs{z_n} = r$. Let $k$ be the number of $0$'s of $f(0' , z_n)$ in $\set{\abs{z_n} < r}$ (counting multiplicities).
+
+    Then in some neighbourhood $U = U' \times U_n \subset V$ of $0 \in \C^n$ we have
+    \begin{align*}
+        f(z) = \br{z_n^k + c_1 (z' ) z_n^{k-1} + \cdots c_k(z') } \phi (z) = \psi(z) \phi(z)
+    \end{align*}
+    where $\phi(z) \in \O(U)$, $\phi(z) \neq 0$, and $c_j(z') \in \O(U')$.
+\end{theorem}
+
+\begin{note}
+    In the previous theorem we call $\psi(z)$ the distinguished polynomial (or the Weierstrass pseudopolynomial) of $f$.
+\end{note}
+
+\begin{remark}
+    Note that if $n=1$ then $f(z_0) = 0$ implies that we can write $f(z) = (z-z_0)^k \phi(z)$ where $\phi(z_0) \neq 0$. Note also that $f$ might vanish on the $z_n$ axis, but we can assume not after some change of variables.
+\end{remark}
+
+\begin{proof}
+    Write $U_n = \set{\abs{z_n} < r}$. Since $f(0',z_n) \neq 0$ on $\set{ \abs{z_n} = r}$, there exists $U' \ni 0'$ such that $\overline{U'} \times \overline{U_n} \subset V$ such that $f(z', z_n) \neq 0$ on $U' \times \set{\abs{z_n } = r}$. Let $n(z')$ be the number of $0$'s of $f(z',z_n) $ for $z' \in U'$ fixed in $U_n$. By the residue theorem in one variable we can write
+    \begin{align*}
+        n(z') = \frac{1}{2 \pi i} \int_{\abs{z_n} =r} \frac{\partial f(z', z_n)}{\partial z_n} \cdot \frac{1}{f(z',z_n)} \dif z_n.
+    \end{align*}
+    Then $n(z')$ is continuous on $U'$ and takes only integer values. Thus $n(z') = k$ is constant on $U'$.
+
+    add image
+
+    Note that zeroes form paths that can intersect. This is okay since we count multiplicites of $0$'s.
+
+    Now let $\alpha_1 (z') , \cdots, \alpha_k (z')$ be the $0$'s of $f(z',z_n)$ counting multiplicities. Write this in any order. Set
+    \begin{align*}
+        P(z',z_n) = \prod_{j=1}^k (z_n - \alpha_j (z')) = z_n^k + c_1(z')z_n^{k-1} + \cdots + c_k (z').
+    \end{align*}
+
+\begin{claim}
+    $c_j(z')$ are holomorphic on $U'$.
+\end{claim}
+\begin{proof}[Proof of Claim]
+    By Vieta's theorem, if we write
+    \begin{align*}
+        p(z) = (z- z_0) \cdots (z-z_k) = z^k + c_1 z^{k-1} + \cdots + c_k
+    \end{align*}
+    then $c_j$ is a symmetric function of the roots. For example in $(x-a)(x-b) = x^2 - (a+b ) x + ab$, $a+b $ and $ab$ are symmetric in $a,b$. A general fact from algebra says that elementary symmetric functions have an "elementary symmetric basis" given (if $x = (x_1, \cdots, x_n)$ by
+    \begin{align*}
+        \sigma_m(x) = \sum_{j=1}^n x_j^m.
+    \end{align*}
+    Combining these two give that $c_J(z') = g_j\left[ \sigma_1 (\alpha (z') ) , \cdots \sigma_k (\alpha (z') ) \right]$ where $g_j $ is a polynomial and $\sigma_j (\alpha (z') )$ is an elementary symmetric polynomial in $\alpha_1 , \cdots, \alpha_k$. To prove that $c_j(z') \in \O(U')$ it suffices to prove that $\sigma_j (\alpha(z'))$ is holomorphic, ie prove that $S_m(z') = \sum_{j=1}^k \alpha_j (z')^m$ are holomorphic.
+
+    Recall from single-variable complex analysis that if $g$ and $h$ are holomorphic in $\abs{\zeta} \leq r$ and $g \neq 0$ on $\abs{\zeta} = r$ then
+    \begin{align*}
+        \frac{1}{2 \pi i} \int_{\abs{\zeta} \leq r} h(\zeta) \frac{g'(\zeta)}{g(\zeta)} \dif \zeta = \sum_{j=1}^N h(\alpha_j)
+    \end{align*}
+    where $\set{\alpha_j} = g^{-1}(0)$. Replacing $\zeta$ by $z_n$, $h(\zeta)$ by $z_n^m$, and $g(\zeta) $ by $f(z' , z_n)$ for some fixed $z' \in U'$ gives us that
+    \begin{align*}
+        S_m(z') &= \sum_{j=1}^k \alpha_j(z')^m\\
+        &= \frac{1}{2 \pi i} \int_{\bdy U_n} z_n^m \br{ \frac{\partial f(z',z_n)}{\partial z_n}  \cdot \frac{1}{f(z',z_n)} } \dif z_n.
+    \end{align*}
+    It is a fact that $F(z,t) $ is $C^1$-smooth in a neighbourhood of $\om \times K \subset \C^n \times \R^m$ with $K $ compact, and if $F(z,t) $ is holomorphic in $z$ for any $t \in K$ fixed, then letting $\mu$ be any measure on $\R^m$ we have
+    \begin{align*}
+        f(z) = \int_K F(z,t) \dif \mu(t) \in \O(\om).
+    \end{align*}
+    For the proof of this compute $\frac{\partial f(z)}{\partial \overline{z_j}}$ using the definition of $\frac{\partial}{\partial \overline{z_j}}$. From this fact, we have that $S_m(z')$ is holomorphic, and we are done.
+\end{proof}
+    We are now done.
+\end{proof}
+
+\begin{remark}
+    \hphantom{.}
+    \begin{itemize}
+        \item If $f(0) = 0$ in the WPT then $c_j(0) = 0$ for all $j$.
+        \item Let $A = \set{f = 0}$ with $f$ as in the WPT. Let $\pi : A \to U'$ be coordinate projection. Then $\pi$ is a branched analytic covering, ie there exists a caset $E \subset U' $ (discriminant set) such that
+        \begin{align*}
+            \pi \big|_{A \setminus \pi^{-1} (E) } : A \setminus \pi^{-1}(E) \to U' \setminus E.
+        \end{align*}
+        Note as well that $A \setminus \pi^{-1} (E) \subset A^{reg}$. This is called a $k$-sheeted covering of $U' \setminus E$.
+    \end{itemize}
+\end{remark}
+
+\begin{theorem}[Weierstrass Division Theorem]
+    Let $f \in \O(U)$ with $0 \in U$. Let $P $ be a Weierstrass pseudopolynomial in $z_n$ in a neighbourhood of $0$ (note that $P$ is not necessarily the Weierstrass pseudopolynomial of $f$). Then in a possibly smaller neighbourhood of $0$ we have that
+    \begin{align*}
+        f = P \cdot \phi + Q
+    \end{align*}
+    where $\phi $ is holomorphic near $0$ and $Q$ is a pseudopolynomial with $\deg Q < \deg P$.
+\end{theorem}
+
+\subsection{Review of Differential Forms}
+
+\begin{definition}
+    on $\R^n$ then
+    \begin{align*}
+        \omega = \sum_{|j| = d} f_j \dif x^j
+    \end{align*}
+    where $\dif x^j = \dif x_{j_1} \wedge \cdots \wedge \dif x_{j_n}$ is a \textbf{differential form} of degree $d$.
+\end{definition}
+
+\begin{remark} \hphantom{.}
+    \begin{itemize}
+        \item If $\omega$ is a degree $0$ form  then $\omega$ is a function.
+        \item If $\omega $ is a degree $n$ form then $\omega = f \dif x_1 \wedge \cdots \wedge \dif x_1$.
+    \end{itemize}
+    This last point is because the $\wedge$ operation is anticommutative, ie $\dif x_a \wedge \dif x_b = - \dif x_b \wedge \dif x_a$.
+\end{remark}
+\begin{remark}
+    Differential forms exist to be integrated. Consider an $n$-form $\omega $ on $\R^n$. Then
+    \begin{align*}
+        \int_{\R^n} \omega = \int_{\R^n} \dif x_1 \wedge \cdots \wedge \dif x_n = \int_{\R^n} f \dif x_1 \cdots \dif x_n
+    \end{align*}
+    where this is now ``normal" integration.
+\end{remark}
+\begin{definition}
+    Define $\Lambda^k$ to be all differential forms of degree $k$ for some $ 0 \leq k \leq n$. Then we define the \textbf{exterior derivative} as the map
+    \begin{align*}
+        \dif : \Lambda^k \to \Lambda^{k+1}
+    \end{align*}
+    with
+    \begin{align*}
+        \dif \left( \sum_{|j| = k} f_j \dif x_j \right) = \sum_{|j| = k} \dif f_j \wedge \dif x_j 
+    \end{align*}
+    where
+    \begin{align*}
+        \dif f = \sum_{\nu = 1}^n \frac{\partial f}{\partial x_{\nu}} \dif x_\nu.
+    \end{align*}
+\end{definition}
+Note that here $f$ is a $0$-form and $\dif f$ is a $1$-form. In particular we have the $1$-forms $\dif x_\nu$ for $\nu = 1 , \cdots, n$. Think of these as differentials of coordinate functions.
+
+\begin{remark}
+    It is true that
+    \begin{itemize}
+        \item $\dif \left( \omega_1 + \omega_2 \right) = \dif \omega_1 + \dif \omega_2$.
+        \item $\dif \br{\omega_1 \wedge \omega_2} = \dif \omega_1 \wedge \omega_2 + (-1)^{\deg (\omega_1) } \omega_1 \wedge \dif \omega_2$.
+        \item $\dif^2 = 0$
+    \end{itemize}
+\end{remark}
+
+Consider now a map $(\R^n , x) \xrightarrow[]{\phi} (\R^m , x')$ where $\omega$ is an $n$-form on $\R^m$ and $\phi(\R^n)$ is an $n$-dimensional manifold in $\R^m$. Then we can integrate $\omega$ on $\phi(\R^n)$. To do this we defined the pullback.
+
+\begin{definition}
+    Let 
+    \begin{align*}
+        \omega = \sum_{|j| = n} f_j \dif (x')^j.
+    \end{align*}
+    The \textbf{pullback} of $\omega$ to $\R^n$ is
+    \begin{align*}
+        \phi^* \omega = \sum_{|j| = n} \br{f_j \circ \phi} \dif \br{\phi(x)}^j.
+    \end{align*}
+\end{definition}
+
+\begin{example}
+    If $\omega = \dif x'_1 \wedge \dif x'_2$, $\phi(x) = \br{ \phi_1(x) , \cdots, \phi_n(x)}$ then $\phi^* \omega = \dif \br{\phi_1 (x) } \wedge \dif \br{\phi_2 (x) }$.
+\end{example}
+
+Then $\phi^* \omega$ is an $n$-form on $\R^n$. Then $\int_{\R^n} \phi^* \omega$ is well-defined.
+\begin{align*}
+    \int_{\phi(\R^n)} \omega := \int_{\R^n} \phi^* \omega.
+\end{align*}
+
+\begin{definition}
+    A form $\omega$ is
+    \begin{itemize}
+        \item \textbf{closed} if $\dif \omega = 0$,
+        \item \textbf{exact} if $\exists \alpha $ such that $\omega = \dif \alpha$.
+    \end{itemize}
+\end{definition}
+
+Note that any exact form is also closed.
+\begin{remark}
+    We can do deRham cohomology from here.
+\end{remark}
+
+\begin{theorem}[Stokes]
+    let $\om \subset \R^n$ be a domain with piecewise smooth boundary, and let $\omega$ is an $(n-1)$-form. Then
+    \begin{align*}
+        \int_{\bdy \om} \omega = \int_{\om } \dif \om.
+    \end{align*}
+    Note that we can pull back $\int_{\bdy \om} \om$ to $\R^{n-1}.$
+\end{theorem}
+
+\begin{example}
+    On $[a,b] \subset \R$ we have
+    \begin{align*}
+        \underbrace{f(b) - f(a)}_{\text{integral over} \{a,b\} } = \int_{(a,b)} \dif f = \int_a^b f'(x) \dif x.
+    \end{align*}
+\end{example}
+
+\subsection{Differential Forms on $\C^n$.}
+
+Most things apply since $\C^n \approx \R^{2n}$. Write
+\begin{align*}
+    z_j = x_j + i y_j.
+\end{align*}
+The building blocks are now $\dif x_j$ and $\dif y_j$. Note we can write any differential form in $\dif x_j$ and $\dif y_j$ in terms of $\dif z_j$ and $\dif \zz_j$ instead. It follows that any $k$-form $\omega$ on $\C^n$ can be written as
+\begin{align*}
+    \omega = \sum_{|\nu| + |\mu| = k} f_{\nu \mu} \dif z^\nu \wedge \dif \zz^\mu
+\end{align*}
+with
+\begin{align*}
+    \nu &= (\nu_1 , \cdots , \nu_n),\\
+    \mu &= (\mu_1 , \cdots , \mu_n),\\
+    \dif z^\nu &= \dif z_{\nu_1} \wedge \cdots \wedge \dif z_{\nu_n},\\
+    \dif \zz^\nu &= \dif \zz_{\nu_1} \wedge \cdots \wedge \dif \zz_{\nu_n}.\\
+\end{align*}
+Thus any differential form $\omega$ can be written as a sum of bidegree $(k,l)$.
+
+\begin{example}
+    The differential form $\omega = \dif z_1 \wedge \dif z_3 \wedge \dif z_5 \wedge \dif \zz_1 \wedge \dif \zz_2 $ has bidegree $(3,2)$.
+\end{example}
+
+\begin{definition}
+    Let $\Lambda^{(k,l)}$ be the set of differential forms of bidegree $(k,l)$. Then define the operator
+    \begin{align*}
+        \difp : \Lambda^{(k,l)} \to \Lambda^{(k+1,l)}
+    \end{align*}
+    with
+    \begin{align*}
+        \difp  \bigg( \sum_{\substack{|\nu| = k \\ |\mu| = l} } f_{\nu \mu} \dif z_\nu \dif \zz_\mu \bigg) = \sum_{\substack{|\nu| = k \\ |\mu| = l}} \sum_{j=1}^n \frac{\difp f_{\nu \mu}}{\difp z_j} \dif z_j \wedge \dif z_\nu \wedge \dif \zz_\nu.
+    \end{align*}
+    This is pronounced as the ``del" operator. We have a similar operator
+    \begin{align*}
+        \difpo : \Lambda^{(k,l)} \to \Lambda^{(k,l+1)}
+    \end{align*}
+    with
+    \begin{align*}
+        \difpo  \bigg( \sum_{\substack{|\nu| = k \\ |\mu| = l} } f_{\nu \mu} \dif z_\nu \dif \zz_\mu \bigg) = \sum_{\substack{|\nu| = k \\ |\mu| = l}} \sum_{j=1}^n \frac{\difp f_{\nu \mu}}{\difp \zz_j} \dif \zz_j \wedge \dif z_\nu \wedge \dif \zz_\nu.
+    \end{align*}
+    This is pronouced as the ``del-bar" operator.
+\end{definition}
+
+\begin{example}
+    $\difpo \left[ \zz_1  z_2 \dif z_1 \wedge \dif \zz_2 \right] = z_2 \dif \zz_1 \wedge \dif z_1 \wedge \dif \zz_2$.
+\end{example}
+
+\begin{exercise}
+    Show that
+    \begin{enumerate}
+        \item $\dif = \difp + \difpo$.
+        \item $\difp^2 = \difpo^2 = 0$ (but $\difp \difpo \neq 0$).
+    \end{enumerate}
+\end{exercise}
+
+\begin{remark}
+    A $C^1$-smooth function $f$ on $\C^n$ is holomorphic if and only if $f$ is a $\difpo$-closed $0$-form.
+\end{remark}
+
+\subsection{Bochner-Martinelli Integral Formula}
+
+Recall the Cauchy integral formula:
+\begin{align*}
+    f(z) = \frac{1}{(2 \pi i)^n} \int_{\bdy_0 \DD^n(0,r) } \frac{f(\zeta)}{\zeta - z} \dif \zeta.
+\end{align*}
+This is nice, but $\bdy_0 \DD^n(0,r)$ is not the full boundary of our domain $\DD^n(0,r)$. We would like an integral formula with two properties: it should go over the full boundary of a domain, and it should give us a function on the interior of the domain just from the boundary values.
+
+Consider a differential form $\omega$ on $\C^n$ of bidegree $(n,n-1)$
+\begin{align*}
+    \omega(z) = \sum_{\nu = 1}^n \frac{(-1)^{\nu-1} \zz_\nu}{|z|^{2n}} \dif \zz[\nu] \wedge \dif z
+\end{align*}
+where
+\begin{align*}
+    |z|^{2n} &= (|z|^2)^n = \br{|z_1|^2 + \cdots + |z_n|^2}^n,\\
+    \dif \zz[\nu] &= \dif \zz_1 \wedge \cdots \wedge \dif \zz_{\nu-1} \wedge \dif \zz_{\nu+1} \wedge \cdots \wedge \zz_{n},\\
+    \dif z &= \dif z_1 \wedge \cdots \wedge \dif z_n.
+\end{align*}
+
+We write the following lemmas.
+
+\begin{lemma}\label{lem:BMcalc1}
+    $\dif \br{ \zz_\nu \dif \zz[\nu]} = (-1)^{\nu-1} \dif \zz$.
+\end{lemma}
+\begin{proof}
+    $\dif \br{ \zz_\nu \dif \zz[\nu]} = \dif \zz_\nu \wedge \dif \zz [\nu] = (-1)^{\nu-1} \dif \zz$.
+\end{proof}
+
+\begin{lemma}\label{lem:BMcalc2}
+    $\omega$ is a closed form on $\C^n \setminus \{ 0 \}$.
+\end{lemma}
+\begin{proof}
+    We write
+    \begin{align*}
+        \dif \omega = \sum_{\nu=1}^n (-1)^{\nu - 1} \frac{\difp}{\difp \zz_\nu} \br{\frac{\zz_\nu}{|z|^{2n}}} \dif \zz_\nu \wedge \dif \zz[\nu] \wedge \dif z.
+    \end{align*}
+    Now
+    \begin{align*}
+        \frac{\difp}{\difp \zz_\nu} \br{\frac{\zz_\nu}{|z|^{2n}}} &= \frac{|z|^{2n} - \zz_\nu \frac{\difp}{\difp \zz_\nu} \left[z_1 \zz_1 + \cdots + z_n \zz_n \right]^n}{(|z|^{2n})^2}\\
+        &= \frac{|z|^{2n} - n |z|^{2n-2} z_\nu \zz_\nu}{|z|^{4n}}.
+    \end{align*}
+    Thus
+    \begin{align*}
+        \dif \omega &= \sum_{\nu = 1}^n \br{\frac{1}{|z|^{2n}} - \frac{n z_\nu \zz_\nu}{|z|^{2n + 2}}} \dif \zz \wedge \dif z\\
+        &= \left[ \frac{n}{|z|^{2n}} - n \frac{ (|z_1|^2 + \cdots + |z_n|^2)}{|z|^{2n+2}} \right] \dif \zz \wedge \dif z\\
+        &= \left[ \frac{n}{|z|^{2n}} - n \frac{|z|^2}{|z|^{2n+2}}  \right] \dif \zz \wedge \dif z\\
+        &= 0.
+    \end{align*}
+    Noting that $\omega$ isn't defined at $0$ gives the result.
+\end{proof}
+
+\begin{lemma}\label{lem:BMcalc3}
+    $f \omega$ is a closed $(n,n-1)$-form.
+\end{lemma}
+\begin{proof}
+    Take a sphere $S_r = \{|z| = r\}$. Note that $\omega$ is a $(2n-1)$-form as a real form. Then
+    \begin{align*}
+        \int_{S_r} \omega &= \frac{1}{r^{2n}} \int_{S_r} \sum_{\nu = 1}^n (-1)^{\nu -1} \zz_\nu \dif \zz[\nu] \dif z\\
+        &= \frac{n}{r^2} \int_{B_r = \{ |z| < r \}} \dif \zz \wedge \dif z.
+    \end{align*}
+    The last equality follows by Stokes' theorem and Lemma \ref{lem:BMcalc1}.
+
+    In $\R$ we have a very solid notion of volume and dimensions. In $\C$ this is a bit more tricky. Write $\dif z_\nu = \dif x_\nu + i \dif y_\nu$. Then
+    \begin{align*}
+        \dif \zz_\nu \wedge \dif z_\nu = 2 i \dif x_\nu \wedge \dif y_\nu
+    \end{align*}
+    and so
+    \begin{align*}
+        \dif \zz \wedge \dif z = (2i)^n \dif x_1 \wedge \cdots \wedge \dif x_n \wedge \dif y_1 \wedge \cdots \wedge \dif y_n.
+    \end{align*}
+    Accepting a positive orientation, ie having $\int 1 \dif x_1 \wedge \cdots \wedge \dif x_n \wedge \dif y_1 \wedge \cdots \wedge \dif y_n \geq 0$ then
+    \begin{align*}
+        \int_{S_r} \omega = \frac{n}{r^{2n}} (2i)^n \int_{B_r} \dif x \wedge \dif y = \frac{(2 \pi i )^n}{(n-1)!}.
+    \end{align*}
+    noting that $\int_{B_r} \dif x \wedge \dif y = \frac{\pi^n r^{2n}}{n!}$ is the volume of an n-dimensional ball.
+
+    Now let $D \subset \C^n$ be a domain with piecewise smooth boundary that contains $0$. Say $f \in \O(D) \cap C(\overline{D})$. Then for $z \neq 0$
+    \begin{align*}
+        \dif (f \omega) = \dif f \wedge \omega + f \dif \omega.
+    \end{align*}
+    By Lemma \ref{lem:BMcalc2} then $\dif \omega = 0$. Now note that $\dif f = \sum_\nu \frac{\difp f}{\difp z_\nu} \dif z_\nu $. Since $\omega$ has all its holomorphic differentials then we cannot add any more. It follows that $\dif f \wedge \omega = 0$. Thus $\dif (f \omega) = 0$, and so $f\omega$ is a closed $(n,n-1)$ form.
+\end{proof}
+
+Now by Stokes' theorem applied to $D \setminus \overline{B(r)}$ we have that
+\begin{align*}
+    \int_{\bdy D} f \omega - \int_{S_r} f \omega = \int_{D \setminus \overline{B(r)}} f \omega = \int_{D \setminus \overline{B(r)}} \dif (f \omega) = 0
+\end{align*}
+and so
+\begin{align*}
+    \int_{\bdy D} f \omega = \int_{S_r } f \omega = f(0) \frac{(2 \pi i)^n}{(n-1)!} + \alpha(r)
+\end{align*}
+where $\alpha(r) \to 0$ as $r \to 0$. This last equality is true as we can write
+\begin{align*}
+    \int_{S_r} f \omega &= \int_{S_r} \left[ f(0) + (f - f(0)) \right] \omega\\
+    &= f(0) \int_{S_r} \omega+ \int_{S_r} \left[ f-f(0) \right] \omega
+\end{align*}
+where the first term is $0$ by Lemma \ref{lem:BMcalc2} and the second term can be written as $\alpha(r)$ where $\alpha(r) \to 0$. However $\int_{\bdy D} f \omega$ does not depend on $r$, thus $\alpha(r) \equiv 0$. Thus
+\begin{align*}
+    f(0) = \frac{(n-1)!}{(2 \pi i)^n} \int_{\partial D} f \omega.
+\end{align*}
+Replacing $0$ with any $z \in D$, ie $\omega(\zeta) \to \omega(z - \zeta)$, gives us the so-called \textbf{Bochner-Martinelli ernel}
+\begin{align*}
+    \omega_{BM} (\zeta - z) : = \frac{(n-1)!}{(2 \pi i )^n} \sum_{\nu = 1}^n \frac{(-1)^{\nu-1} (\overline{\zeta}_{\nu} -\zz_\nu)}{|\zeta - z|^{2n}} \dif \overline{\zeta} [\nu] \wedge \dif \zeta.
+\end{align*}
+
+\begin{theorem}
+    $\forall D \subset \C^n$ with $\bdy D$ piecewise smooth, $\forall  f \in \O (D) \cap C(\overline{D})$, $\forall z \in D$, then
+    \begin{align}\label{eq:BM}
+        f(z) = \int_{\bdy D} f(\zeta) \omega_{BM}(\zeta - z).
+    \end{align}
+\end{theorem}
+\begin{proof}
+    This is a result of the previous lemmas.
+\end{proof}
+
+\begin{remark}
+    \hphantom{.}
+    \begin{itemize}
+        \item For $n=1$ then
+        \begin{align*}
+            \omega_{BM}(\zeta - z) - \frac{\overline{\zeta} - \zz}{|\zeta - z|^2} \dif \zeta = \frac{\dif \zeta }{\zeta - z}
+        \end{align*}
+        which is the Cauchy kernel. Thus the Bochner-Martinelli integral formula is a generalization of the one-dimensional Cauchy integral formula. In some sense BM is better than the CIF as it uses the full boundary of $D$.
+        \item If $z \in \C^n \setminus \overline{D}$ then since $f(\zeta) \omega_{BM}(\zeta - z)$ is closed in $D$ we have that $\int_{\bdy D} f(\zeta) \omega_{BM} (\zeta - z) = 0$.
+        \item We have that
+        \begin{align*}
+            \int_{\bdy D} \omega_{BM} (\zeta - z) =
+            \begin{cases}
+                1 & z \in D,\\
+                0 & z \in \C^n \setminus \overline{D}.
+            \end{cases}
+        \end{align*}
+        Note that this is not defined for $z \in \bdy D$.
+        \item If $f$ is only continuous on $\partial D$ then \eqref{eq:BM} gives a harmonic function in $D$. This is like a higher dimensional Poisson kernel.
+        \item BM has very weak requirements on $D$.
+        \item In some sense BM is worse than CIF, as $\frac{1}{|\zeta - z|^{2n}}$ depends on $\zz$, and so depends anti-holomorphically on $z$. For quite a long time people looked for alternatives that both produce homolorphic extensions and has no anti-holomorphic dependence.
+    \end{itemize}
+\end{remark}
+
+We now want to use BM with stronger conditions on the behaviour on $\partial D$ to get holomorphic functions, not just harmonic functions.
+
+\subsection{Analytic Continuation and Tangential CR Equations}
+
+If $\phi : \C^n \to \R$ is smooth with $\phi (0) = 0$ and $\nabla \phi(0) \neq 0$, then by the implicit function theorem then $\set{\phi = 0 }$ is a real manifold in $\C^n$ of real dimension $2n -1$. This is a real hypersurface. The primary example is the boundary of a domain -- such a $\phi$ is called a defining function of the hypersurface.
+
+IMAGE
+
+The normal direction at a point is $span  \set{\nabla \phi} \cong \R$. This result can also be seen by looking at $\dif \phi$.
+
+Now let $\Phi : \C^n \to \C$ be a holomorphic function such that $\phi(0) = 0$ and $\dif \phi (0) \neq 0$. Then $\set{ \phi(z) = 0}$ is a complex hypersurface. Then
+\begin{align*}
+    \dim_{\C} \phi^{-1}(0) &= n-1,\\
+    \dim_{\R} \phi^{-1}(0) &= 2n-2.
+\end{align*}
+It follows that complex hypersurfaces do not divide the ambient space.
+
+Now let $M = \set{ \phi = 0}$ such that $\dif \phi_M \neq 0$ be a real hypersurface. Let $p \in M$, and let $T_pM$ be the real tangent space to $M$ at $p$. Since the real dimension of the tangent space is $2n-1$ there is a complex linear subspace $H_pM \subset T_pM$ such that $\dim_\C H_pM = n-1$. In fact it is true that
+\begin{align*}
+    H_pM = T_pM \cap i T_pM.
+\end{align*}
+
+Let $f \in C^1(U)$, $S \subset U$ being a real hyperspace. We can write
+\begin{align*}
+    \overline{\partial} f = \sum_{j =1}^n \frac{\partial f}{\partial \zz_j} \dif \zz_j.
+\end{align*}
+At a point $\zeta \in S$ we can represent $\overline{\partial}$ as a sum.
+
+IMAGE
+
+We can split $\overline{\partial}$ into $\overline{\partial}_N$ along the complex normal and $\overline{\partial}_T$ along the complex tangent and so write
+\begin{align*}
+    \overline{\partial} f = \overline{\partial}_N f + \overline{\partial}_T f.
+\end{align*}
+If $\phi$ is a defining function of $S$ then the complex span of $\overline{\partial} \phi$ is the complex normal direction to $H_\zeta S$. Thus we have
+\begin{align*}
+    \overline{\partial}_N f = \lambda \cdot \overline{\partial} \phi
+\end{align*}
+for $\lambda \in \C$. It follows that
+\begin{align*}
+    \overline{\partial}_T f = \overline{\partial} f - \overline{\partial}_N f.
+\end{align*}
+
+\begin{definition}
+    $\overline{\partial}_T$ is called the \textbf{tangential CR operator on $S$}.
+\end{definition}
+
+This is the $\overline{\partial}$ operator but ``constrained to $S$".
+
+\begin{example}
+    Let $S = \{ x_n = 0 \}$. $\phi = x_n = \frac{1}{2} ( z_n + \overline{z}_n)$ is the defining function. Then
+    \begin{align*}
+        \overline{\partial} \phi = \frac{1}{2} \dif \overline{z}_n.
+    \end{align*}
+    The real normal is the $\R$-span of $(0, \cdots, 0 , 1) \cong x_n$-axis. The complex normal is the $\C$-span of $(0, \cdots, 0 ,1) = z_n$-axis.
+
+    ADD PIC
+\end{example}
+
+This leads to the so-called \textbf{tangential CR equations}
+\begin{align*}
+    \frac{\partial }{\partial \overline{z}_1} , \cdots, \frac{\partial }{\partial \overline{z}_{n-1}}.
+\end{align*}
+
+\begin{example}
+    Let
+    \begin{align*}
+        S = \{ 2 x_n + | z'|^2 = 0 \}.
+    \end{align*}
+    Note that $S$ is biholomorphically equivalent to $\bdy \ball{0}{1}$. Then
+    \begin{align*}
+        \overline{\partial} \phi = \dif \overline{z}_n + \sum_{j=1}^{n-1} z_j \dif \overline{z}_j.
+    \end{align*}
+    Thus we have the complex normal direction
+    \begin{align*}
+        \overline{\partial}_N = \frac{\partial}{\partial \overline{z}_n} + \sum_{j=1}^{n-1} z_j \frac{\partial }{\partial \overline{z}_j}.
+    \end{align*}
+    Then the complex tangent direction is
+    \begin{align*}
+        \overline{\partial}_T = \frac{\partial}{\partial \overline{z}_j} - \overline{z}_j \frac{\partial }{\partial z_n} \quad j = 1, \cdots, n-1.
+    \end{align*}
+\end{example}
+\begin{exercise}
+    Show $\overline{\partial}_T$ is tangent to $\overline{\partial}_N$.
+\end{exercise}
+
+\begin{definition}
+    Let $S \subset \C^n$ be a real hypersurface, and let $f \in C^1 (S)$. $f$ is called a \textbf{Cauchy-Riemann function} (ie a CR function) if $f$ satisfies $\overline{\partial}_T f (\zeta) = 0$ for all $\zeta \in S$.
+\end{definition}
+This definiteion makes sense. Indeed we have the following lemma.
+
+\begin{lemma}
+    If $U \subset \R^n, \phi \in \C^k (U)$, for some $k \geq 1$, with $\nabla \phi \neq 0$ and $\psi \in C^k(U)$ vanishes everywhere where $\phi$ is $0$. Then there exists $h \in C^{k-1}(U)$ such that
+    \begin{align*}
+        \psi(x) = h(x) \phi(x).
+    \end{align*}
+\end{lemma}
+\begin{proof}
+    Showing such an $h$ exists is easy. Showing $h \in C^{k-1}(U)$ is harder.
+\end{proof}
+
+42:51
+
+Suppose now that $F,G$ are $2$ different extensions of $f$ from $S$ to a neighbourhood $U \supset S$. Since $F - G = 0$ on $S$ then by the lemma $F - G = h  \phi$ where $\phi$ is the defining function of $S$ and $h \in C^0 (U)$. Then on $S$ we have
+\begin{align*}
+    \overline{\partial} F - \overline{\partial}G = h \overline{\partial} \phi.
+\end{align*}
+This is since $\phi =0 $ on $S$. But then $\overline{\partial} \phi$ is a complex normal direction. This implies that
+\begin{align*}
+    \overline{\partial}_T F - \overline{\partial}_T G = 0
+\end{align*}
+as this ``only sees'' the normal direction. Thus $\overline{\partial}_T F = 0$ is independent of the existence of $F$.
+
+\begin{theorem}
+    The tangential CR equations 
+    \begin{align}\label{eq:tangentialCReqs}
+        \overline{\partial}_T f = 0
+    \end{align}
+at $\zeta \in S$ are equivalent to
+\begin{itemize}
+    \item $\overline{\partial} f (\zeta) $
+\end{itemize}
+\end{theorem}
+% \begin{itemize}
+%     \item[$n=1$]:
+%     \item[$n>1$]:
+% \end{itemize}
+
+    % \begin{itemize}
+    %     \item[$n=1$]:
+    %     \item[$n>1$]:
+    % \end{itemize}

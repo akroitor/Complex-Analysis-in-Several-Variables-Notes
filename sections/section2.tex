@@ -1,0 +1,581 @@
+
+\section{Basic Complex Analysis in Several Variables}
+
+\subsection{Holomorphic Functions on $\C^n$}
+
+First we will talk about the geometry of $\C^n$.
+\begin{remark}
+    \phantom{.}
+    \begin{itemize}
+        \item We define $\C^n = \C \times \cdots \times \C$.
+        \item $z \in \C^n \implies z = (z_1 , \cdots, z_n)$ with $z_j \in \C$.
+        \item There is a natural Hermitian inner product on $\C^n$ given by
+        \begin{align*}
+            (a,b) = \sum_{j = 1}^n a_j \ov{b_j}.
+        \end{align*}
+        \item This induces the norm
+        \begin{align*}
+            \abs{a} = \sqrt{(a,a)}.
+        \end{align*}
+        \item It is true that $\Re (a,b)$ is the euclidean dot product on $\C^n \cong \R^{2n}$.
+        \item It is true that $\Im (a,b)$ is the ``standard symplectic form" on $\C^n$.
+        \item We can compactify $\C$ to get $\C \cup \set{\infty} = \C \mathbb{P}^1$ (also called $\mathbb{P}^1$ in complex algebraic geometry). This is the Riemann sphere and the most classical example of an interesting Riemann surface. It is possible to compactify $\C^n$ as well. Thinking geometrically, we must add one point at infinity for each complex line (ie a copy of $\C$) going through the origin. This is exactly the Grassmannian
+        \begin{align*}
+            Gr(n,1) \cong \C \mathbb{P}^{n-1}.
+        \end{align*}
+        Then we have
+        \begin{align*}
+            \text{compactification of } \C^n = \C^n \cup \C \mathbb{P}^{n-1} = \C \mathbb{P}^n.
+        \end{align*}
+        This is a complex manifold of dimension $n$, ie a real manifold of dimension $2n$.
+    \end{itemize}
+    
+\end{remark}
+
+\begin{definition}
+    There are a few important examples of domains in $\C^n$.
+    \begin{itemize}
+        \item The unit ball $\ball{n} = \set{z \in \C^n \mid \abs{z} < 1}$.
+        \item The unit polydisc $\mathbb{D}^n = \mathbb{D} \times \cdots \times \mathbb{D}$, where $\mathbb{D} = \ball{1}$.
+        \item The ball $\ball{z_0}{r}{n} = \set{z \in \C^n \mid \abs{z-z_0} < r}$.
+        \item $\mathbb{D}^n(z,r) = \mathbb{D}(z_1,r_1) \times \cdots \times \mathbb{D}(z_n,r_n)$, where $z = (z_1 , \cdots, z_n)$ and $r = (r_1, \cdots, r_n)$ is a polyradius.
+    \end{itemize}
+\end{definition}
+
+\begin{definition}
+    The absolute mapping of a set is a function from $\C^n$ to so-called absolute space $\R^n_+$ given by
+    \begin{align*}
+        \tau (z_1 , \cdots , z_n) = (\, \abs{z_1} , \cdots, \abs{z_n}).
+    \end{align*}
+\end{definition}
+
+\begin{example}
+    absolute space of a ball and a polydisc.
+\end{example}
+
+\begin{definition}
+    Let $z = (z' , z_n) \in \C^{n-1} \times \C$ and $r = (r',r_n) \in \R^n_+$ where $ 0 < |r_j| < 1$ for all $j$. We define a Hartogs domain as
+    \begin{align*}
+        H(r)  = &\set{z \in \C^n \mid z' \in \mathbb{D}^{n-1} (0,r') , \, \abs{z_n} < 1}\\
+        \cup &\set{z \in \C^n \mid z' \in \mathbb{D}^{n-1} (0,1) , \, r_n < \abs{z_n} < 1}.
+    \end{align*}
+    This is a domain as the union of two open sets. This is also realizable as a polydisc with another polydisc removed.
+\end{definition}
+
+\begin{remark}
+    Let $ r = (r_1 , \cdots, r_n) \in \R^n_+$ be a point. Then
+    \begin{align*}
+        \tau^{-1}(r ) &= \set{ (r_1 e^{i \theta_1} , \cdots , r_n e^{i \theta_n}  ) \mid 0 \leq \theta_j \leq 2 \pi}\\
+        &\cong S^1 \times \cdots \times S^1\\
+        &= \text{$n$-torus}.
+    \end{align*}
+\end{remark}
+
+\begin{definition}
+    $\om \subset \C^n$ is called a Reinhardt domain (around $0$) if $\forall a \in \om$
+    \begin{align*}
+        \tau^{-1} \br{\tau (a)} = \set{ (a_1 e^{i \theta_1} , \cdots, a_n e^{i \theta_n})} \subset \om.
+    \end{align*}
+    $\om$ is a complete Reinhardt domain if
+    \begin{align*}
+        a \in \om \implies \mathbb{D}^n(0, \tau(a) ) \subset \om.
+    \end{align*}
+\end{definition}
+
+\begin{example}
+    both ball and polydisc are CRDs. $H(r)$ is an RD but not a CRD.
+\end{example}
+
+\begin{note}
+    We use standard multi-index notation. Let $\alpha = (\alpha_1 , \cdots, \alpha_n) \in \N^n$. Then define
+    \begin{align*}
+        |\alpha| &= \alpha_1 + \cdots + \alpha_n\\
+        \alpha! &= \alpha_1! \cdots \alpha_n!\\
+        D^\alpha &= \frac{\partial^{|\alpha|}}{\partial x_1^{\alpha_1} \cdots \partial x_n^{\alpha_n}} \quad \quad \text{ on } \R^n_{(x_1 , \cdots, x_n)}.
+    \end{align*}
+    Then we can define
+    \begin{align*}
+        \frac{\partial }{\partial z_j} &:= \frac{1}{2} \br{ \frac{\partial}{\partial x_j} - i \frac{\partial}{\partial y_j} },\\
+        \frac{\partial }{\partial \overline{z_j}} &:= \frac{1}{2} \br{ \frac{\partial}{\partial x_j} + i \frac{\partial}{\partial y_j} }.
+    \end{align*}
+\end{note}
+
+\begin{exercise}
+    Show that
+    \begin{align*}
+        \br{ \frac{\partial f}{\partial z_j} } = \frac{\partial \overline{f}}{\partial \overline{z_j}}
+    \end{align*}
+    and
+    \begin{align*}
+        \br{ \frac{\partial f}{\partial \overline{z_j}} } = \frac{\partial \overline{f}}{\partial z_j}.
+    \end{align*}
+\end{exercise}
+
+\begin{note}
+    One should not think of Wirtinger derivatives as directional derivatives, but as linear combinations of derivatives.
+\end{note}
+
+\begin{note}
+    We use the notation
+    \begin{align*}
+        D^{\alpha \overline{\beta}} = \frac{\partial^{|\alpha|+ |\beta|}}{\partial z_1^{\alpha_1} \cdots \partial z_n^{\alpha_n} \partial \overline{z_1}^{\beta_1} \cdots \partial \overline{z_n}^{\beta_n} },
+    \end{align*}
+    where $\alpha = (\alpha_1, \cdots, \alpha_n)$ and $\beta = (\beta_1 , \cdots, \beta_n)$.
+\end{note}
+
+
+\begin{definition}
+    Let $D \subset \C^n$ be a domain. hen we say $f : D \to \C$ is holomorphic if $f \in C^1(D)$ and
+    \begin{align*}
+        \frac{\partial f }{\partial \overline{z_j}}(z) &= 0
+    \end{align*}
+    for all $j \in \set{ 1 , \cdots, n }$ and $ z \in D$. We write the set of holomorphic functions on $D$ as $\O(D)$.
+\end{definition}
+
+\begin{note}
+    $f \in C^1(D) \implies$ all first order partial derivatives $\frac{\partial f}{\partial x_j}$ and $\frac{\partial f}{\partial y_j}$ are continuous on $D$. This is equivalent to being able to write
+    \begin{align*}
+        f(z) = f(z_0) + \dif f(z_0) (z-z_0) + o( \, \abs{z-z_0})
+    \end{align*}
+    for $z$ close to $z_0$.
+\end{note}
+
+\begin{example}
+    Polynomials in $z$ are holomorphic. Sums, differences, and products of holomorphic functions are holomorphic. Fractions of holomorphic functions $\frac{f}{g}$ are holomorphic if $g \neq 0$.
+\end{example}
+
+\begin{definition}
+    We define the differential of $f$ at $a \in D$ to be
+    \begin{align*}
+        \dif f_a &= \underbrace{\sum_{j=1}^n \frac{\partial f }{\partial x_j } (a) \dif x_j + \sum_{j=1}^n \frac{\partial f }{\partial y_j} (a) \dif y_j}_{\text{linear map } \R^{2n} \to \R}\\
+        &= \underbrace{\sum_{j=1}^n \frac{\partial f }{\partial z_j } (a) \dif z_j + \sum_{j=1}^n \frac{\partial f }{\partial \overline{z_j}} (a) \dif \overline{z_j}}_{\text{linear map } \C^{n} \to \C}
+     \end{align*}
+\end{definition}
+
+\begin{remark}
+    A linear map can be $\R$-linear (real-linear) or $\C$-linear (complex-linear). A linear map $A : \R^{2n} \to \R^2$ corresponds to a linear space of dimensions $\dim_{\R} = 2n$ in $\R^{2n} \times \R^n$ (the graph of $A$). A map is complex-linear if this $2n$-dimension real space is in fact a complex subspace of $\C^n \times \C$.
+\end{remark}
+
+\begin{example}
+    On $\C^n$, let $z_j = x_j + i y_j$ for $j = 1, \cdots, n$. Then
+    \begin{align*}
+        \C^{n-1} = \operatorname{span}_{\C} \set{ z_1 , \cdots, z_{d-1}}
+    \end{align*}
+    is complex linear, but
+    \begin{align*}
+        \operatorname{span}_{\R} \set{z_1 , \cdots , z_{n-2} , x_{n-1} , x_n}
+    \end{align*}
+    is real but not complex linear.
+\end{example}
+
+\begin{remark}
+    From a differential perspective a $C^1$-smooth function $f : D \to \C$ is holomorphic if $\dif f_a$ is $\C$-linear for any $a \in D$.
+
+    Picture of function and differential
+
+    Here then $T_{(a,f(a))} \Gamma_f = \text{ graph of } \dif f_a \cong \text{ lin. subspace of } \C^n \times \C$. So the space $T_{(a,f(a))} \Gamma_f$ viewed as a subspace of $\C^n \times \C$ is a complex linear subspace. If this is true $\forall a \in D$, $\Gamma_f$ is the graph of a holomorphic function, ie $f$ is holomorphic. Then
+    \begin{align*}
+        \text{CR-equations:} \left. \frac{\partial f}{ \partial \overline{z_j} } \right|_{z=a} = 0 \quad \forall a \in D \iff \dif f_a \text{ is $\C$-linear at every $a \in D$}.
+    \end{align*}
+\end{remark}
+
+\subsection{Cauchy Integral Formula}
+The Cauchy integral formula is not as fundamental as in a single variable, but it is still useful.
+
+\begin{theorem}
+    Let $\mathbb{D}^n(a,r) = \mathbb{D}(a_1,r_1) \times \cdots, \mathbb{D}(a_n ,r_n)$ with $\mathbb{D}(a_j,r_j) \subset \C_{z_j}$. Suppose $f \in C( \overline{\mathbb{D}^n (a,r)} )$ and $f$ is holomorphic in each variable $z_j$, ie
+    \begin{align*}
+        \tilde{f}(\lambda) = f(z_1 , \cdots, z_{j-1} , \lambda , z_{j+1} , \cdots, z_d) : \mathbb{D} (a_j , r_j) \to \C
+    \end{align*}
+    is holomorphic in $\lambda$. Then $\forall z \in \mathbb{D}^n (a,r)$
+    \begin{align*}
+        f(z) = \frac{1}{(2 \pi i)^n} \int f(\zeta) \frac{\dif \zeta}{(\zeta - z)} := \frac{1}{(2 \pi i)^n} \int_{\bdy_0 \mathbb{D}^n (a,r)} f(\zeta_1 , \cdots, \zeta_n) \frac{\dif \zeta_1 \cdots \dif \zeta_n}{(\zeta_1 - z_1 ) \cdots (\zeta_n - z_n)} 
+    \end{align*}
+    where the integral is taken over the distinguished boundary of $\mathbb{D}^n$
+    \begin{align*}
+        \bdy_0 \mathbb{D}^n (a,r) = \set{\zeta \in \C^n \mid |\zeta_j - a_j| = r_j , j = 1 , \cdots, n} \cong S^1 \times \cdots \times S^1.
+    \end{align*}
+\end{theorem}
+
+\begin{remark}
+    $\bdy_0 \mathbb{D}^n(a,r) \subsetneq \bdy \mathbb{D}^n(a,r)$, since $\mathbb{D}^n(a,r)$ has real dimension $2n$, so the boundary has real dimension $2n-2$, but $(S^1)^n$ has real dimension $n$.
+
+    Picture of distinguished boundary.
+\end{remark}
+
+\begin{remark}
+    Consider the function $f(x,y) = \frac{xy}{x^2 +y^2}$ on $\R^2$. This has all partial derivatives but is not continuous at the origin. Thus having partial derivatives is not a priori the same as being holomorphic.
+\end{remark}
+
+\begin{remark}
+    Note that $\bdy_0 \mathbb{D}^n(a,r)$ can be parameterized by $z_j = a_j + r_j e^{i \theta_j}$, with $0 \leq \theta_j \leq 2 \pi$ for $j \in \set{1, \cdots, n}$. This means that
+    \begin{align*}
+        \int_{\bdy_0 \mathbb{D}^n} g(\zeta) \dif \zeta =  i^n \int_{[0,2 \pi]^n} g(\zeta(\theta)) e^{i \theta_1} \cdots e^{i \theta_n} \dif \theta.
+    \end{align*}
+\end{remark}
+
+\begin{proof}
+    We use induction on $n$. If $n=1$ this is just the standard Cauchy integral formula. Suppose now that the CIF holds for $n-1$ variables. Let $z \in \mathbb{D}^n(a,r)$. Then
+    \begin{align}\label{eq:CIFproof1}
+        f(z_1, \cdots, z_n) = \frac{1}{(2 \pi i)^n} \int_{\bdy_0 \mathbb{D}^{n-1} (a',r')} f(z_1 , \zeta_2 , \cdots, \zeta_n) \frac{\dif \zeta_2 \cdots \dif \zeta_n}{(\zeta_2 - z_2 ) \cdots (\zeta_n - z_n)}.
+    \end{align}
+    Fix $\zeta_2, \cdots, \zeta_n$. Then
+    \begin{align}\label{eq:CIFproof2}
+        f(z_1 , \zeta_2, \cdots, \zeta_n) = \frac{1}{2 \pi i} \int_{\abs{\zeta_1 - a_1} = r_1} f(\zeta_1 , \zeta_2, \cdots, \zeta_n) \frac{\dif \zeta_1}{(\zeta_1 - z_1)}.
+    \end{align}
+    Plugging (\ref{eq:CIFproof2}) into (\ref{eq:CIFproof1}) gives us an iterated integral. Since $f \in C(\overline{\mathbb{D}^n})$ we can rearrange integrals to get the CIF.
+\end{proof}
+
+\begin{corollary}
+    If $f $ is continuous and holomorphic in each variable then $f$ is holomorphic.
+\end{corollary}
+
+\begin{remark}
+    By a theorem of Hartogs continuity is not required.
+\end{remark}
+
+\begin{corollary}
+    Let $f \in \O(\mathbb{D}^n(a,r))$. Then
+    \begin{align*}
+        \abs{D^\alpha f(a)} \leq \frac{\alpha!}{r^\alpha} \sup_{z \in \DD^n (a,r) }\abs{f(z)}.
+    \end{align*}
+\end{corollary}
+
+\begin{proof}
+    Take a smaller $r$, then differentiate $\alpha$ times. Then write
+    \begin{align*}
+        (D^\alpha f)(a) = \frac{\alpha!}{(2 \pi i)^n} \int_{\bdy_0 \mathbb{D}^n(a,r)} f(\zeta) \frac{\dif \zeta}{(z-a)^{\alpha+1}}
+    \end{align*}
+    and use max modulus bound.
+\end{proof}
+
+\subsection{Holomorphic Functions as Power Series}
+
+We will try to show that holomorphic functions have valid power series expansions.
+
+\begin{definition}
+    A sequence $f_j \to f$ converges compactly (or normally) on a domain $D \subset \C^n$ if $\set{ f_j }$ converges uniformly on each compact subset of $D$.
+\end{definition}
+
+\begin{theorem}
+    Let $\set{f_j} \subset \O(D)$ be a sequence such that $\lim_{j \to \infty} f_j = f$ compactly. Then $f \in \O(D)$ and $D^\alpha f_j \to D^\alpha f_j$ compactly.
+\end{theorem}
+
+\begin{remark}
+    Compact convergence defines a topology on $\O(D)$. In fact $\O(D)$ is metrizable. More explicitly let $\set{K_j}$ be a normal exhaustion on $D$, that is to say a sequence with $K_j \Subset K_{j+1}$ and $\bigcup_j K_j = D$. Then let
+    \begin{align*}
+        \operatorname{dist}(f,g) = \sum_{\nu = 1}^\infty 2^{- \nu} \frac{\abs{f-g}_{K_\nu}}{1 + \abs{f-g}_{K_\nu} } \leq 1,
+    \end{align*}
+    where $\abs{f-g}_{K_\nu}$ is the sup-norm. This defines a valid metric, and thus defines a topology.
+\end{remark}
+
+\subsection{Power Series}
+
+\begin{definition}
+    A sum $\sum_{\nu \in \N^n} b_\nu$ is absolutely convergent if 
+    \begin{align*}
+        \sum_{\nu \in \N^n} \abs{b_\nu} = \sup \set{ \sum_{\nu \in \Lambda} b_\nu \mid \Lambda \text{ finite set}} < \infty.
+    \end{align*}
+    This is equivalent to $\forall$ bijections $ \sigma : \N \to \N^n$ then series $\sum_{j=1}^\infty b_{\sigma(j)}$ converges absolutely and the limit is independent of the choice of $\sigma$.
+\end{definition}
+
+\begin{definition}
+    The power series centered at $a \in \C^n$ is
+    \begin{align*}
+        \sum_{\nu \in \N^n} b_\nu
+    \end{align*}
+    where
+    \begin{align*}
+        b_\nu &= c_\nu (z-a)^\nu,\\\\
+        c_\nu &= c_{\nu_1, \cdots, \nu_n} \in \C,\\
+        (z-a)^\nu &= (z_1-a_1)^{\nu_1} \cdots (z_n-a_n)^{\nu_n}.
+    \end{align*}
+    We usually stick with $a = 0$ for simplicity.
+\end{definition}
+
+\begin{definition}
+    The domain of convergence of a power series $\sum_{\nu \in \N^n} c_\nu (z-a)^\nu$ is the interior of the set of points of convergence of the series.
+\end{definition}
+
+\begin{note}
+    The domain of convergence may be empty.
+\end{note}
+
+\begin{example}
+    Consider $\sum_{\nu_1, \nu_2 \geq 0} \nu_1! \nu_2! z_1^{\nu_1} z_2^{\nu_2}$. This converges if $z_1 z_2 = 0$ and diverges otherwise. Thus the domain of convergence is $\emptyset$.
+\end{example}
+
+\begin{lemma}\label{lemma:Abels lemma}
+    Let $c_\nu \in \C$ and $\nu \in \N^n$. Suppose that for some $w \in \C^n$ we have
+    \begin{align}\label{eq:abellemma}
+        \sup_{\nu \in \N^n} \abs{c_\nu w^\nu} < M < \infty.
+    \end{align}
+    Let $r = \tau(w) = (|w_1| , \cdots, |w_n|)$. Then $\sum c_\nu z^\nu$ converges on $\DD^n(0,r)$. This convergence is normal, ie if $K \Subset \DD^n(0,r)$ there exists a finite set $\Lambda$ (a "tail") such that
+    \begin{align*}
+        \sum_{\nu \not\in \Lambda } \abs{c_\nu z^\nu} < \epsilon \quad \quad \forall z \in K.
+    \end{align*}
+\end{lemma}
+
+\begin{proof}
+    For all $K \Subset \DD^n(0,r)$, choose $0 < \lambda <1$ such that $K \subset \DD^n(0,\lambda r ) \Subset \DD^n(0,r)$. Then for $z \in \DD^n(0 , \lambda r)$ and $\forall \nu$ we have 
+    \begin{align*}
+        \abs{c_\nu z^\nu } \leq \abs{c_\nu w^\nu} \cdot \lambda^{\abs{\nu}} < M \cdot \lambda^{\abs{\nu}}.
+    \end{align*}
+    Since $\sum_{\nu \in \N^n} \lambda^{\abs{\nu}}$ converges absolutely then the result holds.
+\end{proof}
+
+\begin{corollary}
+    If a domain of convergence of a power series is non-$\emptyset$ it is a complete Reinhardt domain. It is also the interior of the set of points $w$ that satisfy (\ref{eq:abellemma}). The convergence is normal.
+
+    Picture of domains.
+\end{corollary}
+
+\begin{remark}
+    Not every complete Reinhardt domain is a domain of convergence of some power series of a holomorphic function.
+\end{remark}
+
+\begin{definition}
+    Let $\tau_1 : w \mapsto (\ln |w_1| , \cdots, \ln |w_n|)$. $\om \subset \C^n$ is log-convex if $\tau_1(\om)$ is convex in $\R^n$.
+\end{definition}
+
+\begin{proposition}
+    $\om $ is the domain of convergence of some power series $\iff$ $\om$ is log-convex.
+\end{proposition}
+
+\begin{example}
+    A complete Reinhardt domain that is not log-convex.
+\end{example}
+
+\begin{theorem}
+    A power series $f(z) = \sum_{\nu} c_{\nu} z^{\nu}$ with a non-empty domain of convergence $\om$ defines a holomorphic function $f \in \O(\om)$. Moreover $\forall \alpha \in \N^n$ the series of derivatives $\sum_\nu c_\nu (D^\alpha z^\nu)$ converges compactly to $D^\alpha d$ on $\om$ and
+    \begin{align}\label{eq:power-seris-is-hol}
+        (D^\alpha f) (0) = \alpha! c_\alpha
+    \end{align}
+\end{theorem}
+
+\begin{proof}
+    Fix a bijection $\sigma : \N \to \N^n$. Then
+    \begin{align*}
+        f(z) = \lim_{k \to \infty} \sum_{j =1}^k c_{\sigma(j)} z^{\sigma (j)}.
+    \end{align*}
+    This converges compactly on $\om$. Since partial sums are polynomials and are thus holomorphic on $\om$, $f$ is holomorphic and
+    \begin{align*}
+        D^\alpha f(z) = \lim_{k \to \infty} \sum_{j=1}^k c_{\sigma (j)} (D^\alpha z^{\sigma (j)})
+    \end{align*}
+    on $\om$. So for a fixed $\alpha \in \N^n$ and $w \in \om$ we have
+    \begin{align*}
+        \sup_{\nu} \left. \abs{c_\nu (D^\alpha z^\nu )} \right|_{z= w} < \infty.
+    \end{align*}
+    $\om$ is contained in the domain of convergence of the power series $\sum_\nu c_\nu (D^\alpha z^\nu)$ by Lemma (\ref{lemma:Abels lemma}). To prove (\ref{eq:power-seris-is-hol}) one can evaluate $D^\alpha f(z)$ at $z=0$.
+\end{proof}
+
+We have proven that a power series gives a holomorphic function. We now want to prove the inverse.
+
+\subsection{Taylor Series}
+
+\begin{theorem}
+    Let $f \in \O(\DD^n(a,r))$. Then the Taylor series of $f$ converges to $f$ in the polydisc, ie
+    \begin{align}\label{eq:taylor series}
+        f(z) = \sum_{\nu \in \N^n} \frac{D^\nu f(a)}{\nu!} (z-a)^\nu \qquad \qquad \forall z \in \DD^n(a,r).
+    \end{align}
+\end{theorem}
+
+
+\begin{proof}
+    Apply the CIF on $\DD^n(a,\rho)$ with $\rho < r$. Then use the expansion
+    \begin{align}\label{eq:geometric kernel expansion}
+        \frac{1}{\zeta - z} = \sum_{\nu \in \N^n} \frac{(z-a)^\nu}{(\zeta-a)^{\nu+1}}.
+    \end{align}
+    This sum converges uniformly for $\zeta \in \bdy_0 \DD^n (a, \rho)$ because
+    \begin{align*}
+        \frac{\abs{z_j - a_j}}{\abs{\zeta_j - a_j}} \leq \frac{\abs{z_j - a_j}}{\rho} < 1.
+    \end{align*}
+    Then put (\ref{eq:taylor series}) into the CIF and replace the factor of $\frac{1}{\zeta-z}$ with (\ref{eq:geometric kernel expansion}). Since this is uniformly convergent we can swap the integral and the sum to get
+    \begin{align*}
+        f(z) = \sum_{\nu \in \N^n} \underbrace{\left[ \frac{1}{(2 \pi i)^n} \int_{\bdy_0 \DD^n(a,\rho)} f(\zeta) \frac{\dif \zeta }{(\zeta - a)^{\nu +1}}\right]}_{= \frac{D^\alpha f(a)}{\nu!} \text{ by a corollary to CIF}} (z-a)^\nu.
+    \end{align*}
+\end{proof}
+
+\begin{remark}
+    If $n=1$ then $f \in \O(\om)$ with $f \not\equiv cst$ implies that $f^{-1}(0)$ is discrete. If $n>1$ this is not so, Consider $f(z_1, z_2) = z_1$. Then $f^{-1}(0) = \set{z_1 = 0}$ is not discrete.
+\end{remark}
+
+\subsection{Hartogs' Theorem}
+
+There were classically two definitions for holomorphic functions.
+
+\begin{definition}[Riemann]
+    $f \in \O(\om) \iff \frac{\partial f}{\partial \overline{z_j}} \equiv 0$ for all $j = 1 ,\cdots, n$. 
+\end{definition}
+
+\begin{definition}[Weierstrass]
+    $f \in \O(\om) \iff f$ locally admits a power series representation $f(z) = \sum_{\nu \in \N^n} c_\nu (z-a)^\nu$.
+\end{definition}
+
+
+\begin{note}
+    A priori Riemann's definition seems unsatisfactory compared to Weierstrass's. The example is $f(x,y) = \frac{xy}{x^2 + y^2}$, which has partial derivatives but is not continuous at the origin. It seems that we should require additionally $f \in C^1(\om)$. Hartogs proved that $f \in C^1(\om)$ is not necessary.
+\end{note}
+
+
+\begin{theorem}[Hartogs, 1907]\label{thm:hartogs}
+    If $f$ is holomorphic in each variable then $f$ is holomorphic.
+\end{theorem}
+
+To prove this we need a few lemmas. This is the first serious result in the class.
+
+\begin{lemma}[Schwarz]
+    Let $\phi \in \O(\DD^1(0,r))$ with $\phi(z_0) = 0$ for some $z_0 \in \DD^1(0,r)$, and $\abs{\phi} \leq M$ on $\DD^1(0,r)$. Then
+    \begin{align*}
+        \abs{\phi(z)} \leq M \cdot r\frac{ \abs{z-z_0}}{\abs{r^2 - \overline{z_0}z}}.
+    \end{align*}
+\end{lemma}
+
+\begin{proof}
+    Take $\lambda : \DD(0,r) \to \DD(0,1) \subset \C$ be a conformal map such that $\lambda(z_0) = 0$ and apply the standard version of the Schwarz lemma on $\DD(0,1)$. 
+\end{proof}
+
+\begin{lemma}
+    If $f$ is holomorphic in each variables $z_\nu$ in $\DD^n(a,r) = U$ and $f$ is bounded in $U$ then it is continuous there.
+\end{lemma}
+
+\begin{proof}
+    Take any $z',z \in U$. Then one can write
+    \begin{align*}
+        f(z) - f(z') = \sum_{\nu = 1}^n \left[ f(z_1' , \cdots, z_{\nu - 1}' , z_\nu , \cdots, z_n ) - f(z_1' , \cdots, z_{\nu}' , z_{\nu+1} , \cdots, z_n ) \right].
+    \end{align*}
+    Consider each term as a function $\phi_\nu (z_\nu)$ while other variables are fixed. Say $\abs{f} < \frac{M}{2}$ in $U$. Then $\phi_\nu$ satisfies the Schwarz lemma, and so
+    \begin{align*}
+        \abs{f(z) - f(z')} \leq \sum_{\nu = 1}^n \abs{ \phi_\nu (z_\nu)  } \leq M \sum_\nu r_\nu\frac{\abs{z_\nu - z_\nu'}}{\abs{r^2_\nu - \overline{z_\nu} z_\nu}}.
+    \end{align*}
+    Then as $z \to z_0$, $f(z) \to f(z_0)$ and so $f$ is continuous.
+\end{proof}
+
+\begin{note}
+    If $f$ is holomorphic in each variable and bounded, then by the previous lemma $f$ is continuous and so by CIF $f$ is holomorphic.
+\end{note}
+
+\begin{theorem}[Baire]
+    Let $X $ be a complete metric space with $X = \bigcup_{m=1}^\infty A_m$, where $A_m$ is closed. Then at least one of $A_m$ contains a nonempty open set.
+\end{theorem}
+
+
+\begin{lemma}[Osgood]
+    Let $U = \DD^n(0,R)$, $z = (z' ,z_n)$ with $z' = (z_1, \cdots, z_{n-1})$. Write
+    \begin{align*}
+        U &= U' \times U_n,\\\\
+        U' &= \DD^{n-1}(0',R') \subset \C^{n-1}_{z'},\\
+        U_n &= \DD(0,R_n) \subset \C_{z_n}.
+    \end{align*}
+    If $f(z',z_n)$ is continuous in $z'$ on $\overline{U'}$ for any fixed $z_n \in \overline{U_n}$ and continuous in $z_n$ on $\overline{U_n}$ for any fixed $z' \in U'$, then there exists a polydisc
+    \begin{align*}
+        W = W' \times U_n \subset U
+    \end{align*}
+    where $f$ is bounded.
+\end{lemma}
+
+Picture of domains.
+
+\begin{proof}
+    For a fixed $z' \in U'$ write
+    \begin{align*}
+        M(z') = \max_{z_n \in \overline{U_n}} \abs{f(z' , z_n)}
+    \end{align*}
+    and for $m \in \N$
+    \begin{align*}
+        E_m = \set{z' \in \overline{U'} \mid M(z') \leq m }.
+    \end{align*}
+    Then $E_m $ is closed. This is as: let $\set{z'_\mu } \subset E_m$ such that $z'_\mu \to z'_0 \in U'$. Then we want to show that $z_0' \in E_m$. Indeed suppose $|f(z_\mu' , z_n)| \leq m$. Then by continuity of $f$ in $z'$ we have that $|f(z' , z_n)| \leq m$ for any $z_n \in \overline{U_n}$. in other words $M(z') \leq m$, so $E_m$ is closed.
+
+    Clearly $E_m \subseteq E_{m+1} $ and $\bigcup E_m = \overline{U'}$. we claim that there exists some $M>0$ such that $E_M$ contains a non-$\emptyset$ domain $G' \subset U'$. This follows from the Baire category theorem. Then $W \subset G' \times U_n$ polydisc. Then on $W$ we have $\abs{f} < M$.
+\end{proof}
+
+\begin{note}
+    This almost gives us our result! We know $f$ is holomorphic in a subset, but not everywhere.
+\end{note}
+
+\begin{lemma}[Hartogs]\label{lemma:hartogs}
+    Let $r< R$. Then define
+    \begin{align*}
+        V' &= \DD^{n-1}(a',R) \subset \C^{n-1},\\
+        W' &= \DD^{n-1}(a',r) \subset \C^{n-1},\\
+        U_n &= \DD(0,R),\\\\
+        V &= V' \times U_n,\\
+        W &= W' \times U_n.
+    \end{align*}
+    If $f(z',z_n) $ is holomorphic in $z'$ in $V'$ $\forall z \in U_n$ and is holomorphic in $z$ in $\overline{W}$, then it is holomorphic in $\overline{V}$.
+\end{lemma}
+
+\begin{lemma}\label{lemma:hartogslemma3}
+    If $\set{u_k}$ is a sequence of subharmonic functions on $D \subset \C$ that are uniformly bounded on each compact subset of $D$, and $\forall z \in D$
+    \begin{align}\label{eq:subharmonic ubdd}
+        \limsup_{k \to \infty} u_k(z) \leq A
+    \end{align}
+    then for any compact $K \Subset D$ for all $\epsilon > 0$, there exists $k_0$ such that
+    \begin{align*}
+        u_j(z) \leq A + \epsilon
+    \end{align*}
+    for all $z \in K, \forall j > k_0$.
+\end{lemma}
+\begin{proof}
+    Consult Hormander chapter $1$.
+\end{proof}
+
+\begin{proof}[Proof of Lemma \ref{lemma:hartogs}]
+    Wlog we have that $a' = 0' $ and that for any $z_n \in U_n, z' \in U'$,
+    \begin{align*}
+        f(z)  = \sum_{\abs{k} = 0}^\infty c_k(z_n) (z')^k, \qquad k = (k_1 , \cdots, k_{n-1}),
+    \end{align*}
+    where
+    \begin{align*}
+        c_k (z_n ) = \frac{1}{k!} \frac{\partial^{\abs{k}} f }{(\partial z')^{k}}(0',z_n).
+    \end{align*}
+    These are holomorphic functions in $z_n$ since we are varying in $\{ 0 \} \times U_n \subset W$. This implies that $\frac{1}{\abs{k} } \ln{ \abs{c_k (z_n) } }$ is subharmonic for all $k$.
+
+    Let $\rho < R$. Since $f(z) $ converges in $V$ we have that $\forall z_n \in U_n$
+    \begin{align*}
+        \abs{c_k (z_n) } \rho^{\abs{k}} \to  \infty
+    \end{align*}
+    as $\abs{k} \to \infty$. It follows that for a fixed $z_n \in U_n$ there exists $k_0 > 0$ such that $\forall \abs{k} > k_0$ we have
+    \begin{align*}
+        \frac{1}{\abs{k}} \ln{ \abs{c_k (z_n)} } + \ln{\rho} \geq 0
+    \end{align*}
+    and so
+    \begin{align}\label{eq:hartogslemma1}
+        \limsup_{\abs{k} \to \infty} \frac{1}{\abs{k}} \ln{ \abs{c_k (z_n)} } \leq \ln{\frac{1}{\rho}}.
+    \end{align}
+    Note that $f \in \O(\overline{W}) \implies f$ is bounded on $\overline{W}$, say that $\abs{f} < M$. By the Cauchy inequality (ie that $\abs{c_k (z_n)} \leq Mr^{-\abs{k}}$) then 
+    \begin{align*}
+        \abs{c_k (z_n) } r^{\abs{k}} \leq M \qquad \forall z_n \in U_n.
+    \end{align*}
+    It follows that
+    \begin{align}\label{eq:hartogslemma2}
+        \frac{1}{\abs{k} } \ln{ \abs{c_k(z_n) }} \leq \ln{ \br{\frac{M^{1/\abs{k}}}{r}} } \leq M_0 \in \R_{+}.
+    \end{align}
+
+    Since \ref{eq:hartogslemma1} (limsup condition) and \ref{eq:hartogslemma2} (uniformly bounded condition) hold then we can apply Lemma \ref{lemma:hartogslemma3}. Then $\forall \sigma < \rho$ there exists $k_0$ such that $\forall \abs{k} > k_0$ and $\forall z $ such that $\abs{z} < \sigma$ we have that
+    \begin{align*}
+        \frac{1}{\abs{k}} \ln{ \abs{c_k(z_n)} } \leq \ln{ \frac{1}{\sigma} }
+    \end{align*}
+    ie
+    \begin{align*}
+        \abs{c_k(z_n) } \sigma^{\abs{k}} \leq 1.
+    \end{align*}
+    By Lemma \ref{lemma:Abels lemma} $\sum c_k(z_n) (z')^k$ converges uniformly in any $\DD'(0,\sigma') $ where $\sigma' < \sigma$. The coefficient are continuous functions, so $f$ is bounded and continuous. It follows that $f$ is holomorphic.
+\end{proof}
+
+With our preparatory lemmas out of the way we can prove Hartogs theorem.
+
+\begin{proof}[Proof of Theorem \ref{thm:hartogs}]
+    Notice that this is local. Let $z^0 = 0$ be a an arbitrary point in $\om$. $f $ is holomorphic in each variable on $\DD^n(0,R)$. We need to show that $f$ is holomorphic in some neighbourhood of $0$. We proceed by induction on the number of variables. If $n = 1$ this is trivially true. Suppose that $f$ is holomorphic in $z' = (z_1, \cdots, z_{n-1})$.
+
+    Let $U' = \DD^{n-1} (0' , \frac{R}{3})$ and $U_n = \DD(0,R)$. By assumption $f$ is continuous in $z'$ on $\overline{U'}$ for all $z_n \in \overline{U_n}$ and in $z_n \in \overline{U_n}$ for all $z' \in \overline{U'}$.
+
+    Insert image.
+
+    $f$ is bounded in some polydisc $W = W' \times \overline{U_n}$ where $W' = \DD^{n-1}(a',r)$. Then $f$ is holomorphic in $W$. 
+    
+    Now consider $V' = \DD^{n-1}(a' , \frac{2R}{3})$ and $V = V' \times U_n$. Then $\overline{V} \subset \overline{\DD(0,R)}$. $f$ is holomorphic in $z'$ in $\overline{V'}$ for all $z_n$, and holomorphic in $z $ in $\overline{W}$. By Hartogs' lemma $f$ is holomoprhic in $\overline{V}$. Since $0 \in V$ then $f$ is holomorphic near $0$. Then $f$ is holomorphic at each point.
+\end{proof}
+
+This marks the end of basic complex analysis in several variables.
